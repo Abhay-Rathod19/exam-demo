@@ -1,7 +1,7 @@
 
 export const ExmLabel = ({ children, ...props }) => {
     return (
-        <label {...props} className="d-block">
+        <label className="d-block" {...props} >
             {children}
         </label>
     )

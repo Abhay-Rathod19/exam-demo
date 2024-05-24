@@ -1,10 +1,10 @@
-const listDataArray = ["Student", "Teacher"];
+const listDataArray = ["-- Select your role --", "Student", "Teacher"];
 
 export const signUpFormInput = [
     {
         inputType: "input",
         fieldType: "text",
-        name: "userName",
+        name: "name",
         label: "Enter your name : ",
     },
     {
@@ -23,7 +23,7 @@ export const signUpFormInput = [
         // for select
         inputType: "select",
         listData: listDataArray,
-        defaultSelValue: "Student",
+        defaultSelValue: listDataArray[0],
         name: "userRole",
         label: "Select your role : ",
     },

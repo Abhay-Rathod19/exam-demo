@@ -23,7 +23,7 @@ export const newPassData = [
     {
         inputType: "input",
         fieldType: "password",
-        name: "ConfirmPassword",
+        name: "confirmPassword",
         label: "Confirm your password : ",
     },
     {
@@ -50,7 +50,7 @@ export const resetPassData = [
     {
         inputType: "input",
         fieldType: "password",
-        name: "confirmPass",
+        name: "confirmPassword",
         label: "Confirm your password : ",
     },
     {

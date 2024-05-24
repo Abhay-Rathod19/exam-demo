@@ -20,8 +20,10 @@ export const loginFormData = [
     },
     {
         inputType: "additionalAction",
-        label: "Forgot Password",
-        styles: { color: "blue", cursor: "pointer" },
-        onClick: () => console.log("Forget password."),
-    }
+        addActionData: [
+            { label: "Sign up", onClickPath: "/signup" },
+            { label: "Forgot Password", onClickPath: "/forgetpassword" }
+        ],
+        styles: { color: "blue", cursor: "pointer", display: "grid" },
+    },
 ];

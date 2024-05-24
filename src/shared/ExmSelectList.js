@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormControl } from "@mui/material";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
@@ -11,7 +11,7 @@ export const ExmSelectList = ({ ...props }) => {
             <FormControl
                 className="select-country"
                 size="small"
-                sx={{ width: 300, display: "block", margin: "10px 0 10px 0" }}
+                sx={{ width: 300, display: "block", margin: "10px 0 20px 0" }}
             >
                 <Select
                     labelId="demo-simple-select-label"
