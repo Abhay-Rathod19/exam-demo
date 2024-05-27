@@ -9,3 +9,11 @@ export const objectKeys = (object) => {
 export const objectValues = (object) => {
     return Object.values(object);
 }
+
+export const setToLocalStorage = (key, dataValue) => {
+    return localStorage.setItem(key, dataValue)
+}
+
+export const getFromLocalStorage = (key) => {
+    return localStorage.getItem(key)
+}

@@ -1,6 +1,16 @@
 import { errorMsg } from "../constants/userModule/errorMsg";
 import { objectKeys, objectValues } from "../utils/javaScript";
 
+const validatePass = (inputPass) => {
+    if (inputPass === "") {
+        return errorMsg.password.require;
+    } else if (inputPass?.length < 6) {
+        return errorMsg.password.passLength;
+    } else {
+        return "";
+    }
+};
+
 export const validateFormFields = (
     field,
     value,
@@ -8,6 +18,8 @@ export const validateFormFields = (
     formError,
     setFormError
 ) => {
+    // console.log("Error-now-are:", formError);
+
     switch (field) {
         case "name":
             console.log("I am running");
@@ -39,51 +51,37 @@ export const validateFormFields = (
                 return "";
             }
 
-        case "password":
-            const passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-            let inputPass = value;
-            // if (inputPass === "") {
-            //     return errorMsg.password.require;
-            // } else if (inputPass.length > 16) {
-            //     return errorMsg.password.passMaxLength;
-            // } else if (inputPass.length > 7) {
-            //     if (!passRegex.test(inputPass)) {
-            //         return errorMsg.password.inValidPassword;
-            //     } else {
-            //         return "";
-            //     }
-            // } else {
-            //     return errorMsg.password.passLength;
-            // }
-            if (inputPass?.length < 2) {
-                return errorMsg.password.passLength;
-            } else {
-                return "";
-            }
-
-        case "confirmPassword":
-            let confirmPassword = value;
-            if (confirmPassword?.length < 2) {
-                return errorMsg.password.passLength;
-            } else {
-                return "";
-            }
-
         case "oldPassword":
             let oldPassword = value;
-            if (oldPassword?.length < 2) {
-                return errorMsg.password.passLength;
-            } else {
-                return "";
+            return validatePass(oldPassword);
+
+
+        case "password":
+            let inputPass = value;
+            let confirmPass = data?.confirmPassword;
+            // console.log("Now confirm-pass : ", confirmPass);
+            if (confirmPass && inputPass !== confirmPass) {
+                // console.log("Running...");
+                return "Both password not matching.."
             }
+            return validatePass(inputPass);
+
+        case "confirmPassword":
+            let passwd = data?.password;
+            let confirmPassword = value;
+
+            if (confirmPassword.length > 1) {
+                if (passwd) {
+                    if (passwd !== confirmPassword) {
+                        return "Enter Same password"
+                    }
+                }
+            }
+            return validatePass(confirmPassword);
 
         case "newPassword":
             let newPassword = value;
-            if (newPassword?.length < 2) {
-                return errorMsg.password.passLength;
-            } else {
-                return "";
-            }
+            return validatePass(newPassword);
 
         case "allFields":
             const errorData = {};
@@ -105,4 +103,6 @@ export const validateFormFields = (
             console.log("You got default case.");
             return "";
     }
+
+
 };

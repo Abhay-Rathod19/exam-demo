@@ -10,14 +10,17 @@ import { ExmTypography } from "./ExmTypography";
 import { validateFormFields } from "../helpers/validateFormFields";
 import { Box } from "@mui/material";
 import { objectValues } from "../utils/javaScript";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { addSubmitedData } from "../redux/slices/userSlice";
-import { onUserSignUp } from "../helpers/userModules/userActions";
+import { fetchApiData } from "../redux/slices/apiSlice";
+import { onUserLogIn, onUserSignUp } from "../helpers/userModules/userActions";
 
-export const RenderFormFields = ({ fieldsObject, formName }) => {
+export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const apiLoading = useSelector((state) => state.api.loading);
     const [formData, setFormData] = useState({});
     const [formError, setFormError] = useState({});
 
@@ -28,11 +31,9 @@ export const RenderFormFields = ({ fieldsObject, formName }) => {
         setFormData({ ...formData, [fieldName]: value });
         setFormError({
             ...formError,
-            [fieldName]: validateFormFields(fieldName, value),
+            [fieldName]: validateFormFields(fieldName, value, formData, formError, setFormError),
         });
     };
-
-    // console.log("Form-da : ", formData);
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -46,15 +47,11 @@ export const RenderFormFields = ({ fieldsObject, formName }) => {
             ) &&
             objectValues(formError).filter((value) => value).length === 0
         ) {
-            console.log("Form submitted successfully.");
             const dataToSbmt = { [formName]: formData };
             dispatch(addSubmitedData(dataToSbmt));
-            setFormData({});
-
-            onUserSignUp(formData);
+            onFormSubmit(formData, navigate, setFormData);
             return true;
         }
-        console.log("Form is not submited.");
         return false;
     };
 
@@ -161,7 +158,7 @@ export const RenderFormFields = ({ fieldsObject, formName }) => {
                         return (
                             <Stack key={`text-${index}`}>
                                 <ExmButton type={btnType} sx={{ ...styles }}>
-                                    {btnValue}
+                                    {apiLoading ? "Wait" : ""}  {btnValue}
                                 </ExmButton>
                             </Stack>
                         );

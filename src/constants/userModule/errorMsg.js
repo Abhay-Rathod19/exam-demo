@@ -9,27 +9,16 @@ export const errorMsg = {
     },
     password: {
         require: 'Password is required',
-        passLength: 'Password must have at least 8 character',
-        passMaxLength: 'Password length must in 16 digits',
-        inValidPassword: 'Password must have at least one special character',
+        passLength: 'Password must have at least 6 character',
     },
     confirmPassword: {
         require: 'Confirm password is required',
-        passLength: 'Password must have at least 8 character',
-        passMaxLength: 'Password length must in 16 digits',
-        inValidPassword: 'Password must have at least one special character',
     },
     newPassword: {
         require: 'NewPassword password is required',
-        passLength: 'Password must have at least 8 character',
-        passMaxLength: 'Password length must in 16 digits',
-        inValidPassword: 'Password must have at least one special character',
     },
     oldPassword: {
         require: 'OldPassword password is required',
-        passLength: 'Password must have at least 8 character',
-        passMaxLength: 'Password length must in 16 digits',
-        inValidPassword: 'Password must have at least one special character',
     },
     userRole: {
         require: 'Select your role'

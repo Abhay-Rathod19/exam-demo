@@ -1,7 +1,9 @@
 import axios from "axios";
+import { BASE_URL } from "../constants/userModule/apiConstants";
+import { getFromLocalStorage } from "../utils/javaScript";
 
 export const userDataApi = axios.create({
-    baseURL: "https://examination.onrender.com/users",
+    baseURL: BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },
@@ -9,10 +11,10 @@ export const userDataApi = axios.create({
 
 userDataApi.interceptors.request.use(
     (config) => {
-        // const token = localStorage.getItem();
-        // if (token) {
-        //     // config.headers.Authorization = `Bearer ${token}`;
-        // }
+        const token = getFromLocalStorage("token");
+        if (token) {
+            config.headers['access-token'] = token;
+        }
         return config;
     },
     (error) => {
@@ -23,11 +25,14 @@ userDataApi.interceptors.request.use(
 
 userDataApi.interceptors.response.use(
     (response) => {
-        // console.log(`Response is : `, response.data.data)
-        return response.data;
+        console.log(`Response is : `, response);
+        // if (response?.data?.statusCode) {
+        //     alert(response?.data?.message);
+        // }
+        return response?.data;
     },
     (error) => {
         console.log(`I got error.`);
-        throw new Error(error.response.data.message);
+        throw new Error(error.response?.data?.message);
     }
 );
