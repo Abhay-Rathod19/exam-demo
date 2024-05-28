@@ -26,6 +26,30 @@
   box-shadow: 7px 7px 18px #c5c5c5, -7px -7px 18px #fbfbfb;
 }
 
+a {
+  text-decoration: none;
+}
+
 .api-response-msg {
-  height: 40px;
+  /* height: 40px; */
+}
+
+.dashboard-content-container {
+  /* display: flex;
+  justify-content: center;
+  align-items: start; */
+  display: grid;
+  width: 100%;
+}
+
+/* .table-edit {
+  width: 100%;
+} */
+.table-edit,
+.table-edit tr,
+.table-edit th,
+.table-edit td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgb(0, 0, 0);
 }

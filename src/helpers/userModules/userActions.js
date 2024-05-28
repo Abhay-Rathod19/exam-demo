@@ -1,7 +1,9 @@
 import { exmStore } from "../../redux/store/store";
 import { fetchApiData } from "../../redux/slices/apiSlice";
 import { API_REQ_SUCCESS_CODE } from "../../constants/userModule/apiConstants";
-import { getFromLocalStorage } from "../../utils/javaScript";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils/javaScript";
+import { addToLogUser } from "../../redux/slices/userSlice";
+import { json } from "react-router";
 
 export const onUserSignUp = async (formData, navigate, setFormData) => {
     const data = {
@@ -42,6 +44,8 @@ export const onUserLogIn = async (formData, navigate, setFormData) => {
     if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
         navigate("/dashboard", { replace: true });
         setFormData({});
+        exmStore.dispatch(addToLogUser(request.payload.data));
+        setToLocalStorage('LogInUser', JSON.stringify(request.payload.data));
     }
 };
 

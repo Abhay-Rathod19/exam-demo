@@ -30,6 +30,11 @@ export const apiSlice = createSlice({
         removeApiMsg: (state, action) => {
             state.apiMessage = null;
         },
+        removeApiData: (state, action) => {
+            state.apiData = [];
+            state.loading = false;
+            state.apiResponse = {};
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -43,7 +48,9 @@ export const apiSlice = createSlice({
                 state.apiMessage = action.payload.message;
                 state.apiData = action.payload?.data;
                 state.useApiToken = action.payload?.data?.token;
-                setToLocalStorage("token", action.payload?.data?.token);
+                if (action.payload?.data?.token) {
+                    setToLocalStorage("token", action.payload?.data?.token);
+                }
             })
             .addCase(fetchApiData.rejected, (state, action) => {
                 state.loading = false;
@@ -53,4 +60,4 @@ export const apiSlice = createSlice({
 });
 
 export const apiReducer = apiSlice.reducer;
-export const { removeApiMsg } = apiSlice.actions;
+export const { removeApiMsg, removeApiData } = apiSlice.actions;

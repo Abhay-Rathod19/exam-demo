@@ -8,11 +8,3 @@ export const ExmButton = ({ children, ...props }) => {
         </Button>
     )
 }
-
-// export const ButtonComponent = ({ ...props }) => {
-//     return (
-//         <Button variant="contained" className={props.className} onClick={props.onClick} disabled={props.disabled}>
-//             {props.buttonValue}
-//         </Button>
-//     )
-// }

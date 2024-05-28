@@ -13,7 +13,6 @@ export const Message = () => {
     const apiStatusCode = useSelector((state) => state?.api?.apiResponse?.statusCode);
 
     const setSeverity = (code) => {
-
         if (code === 200) return "success";
         if (code === 500) return "error";
         else return "info";
@@ -22,7 +21,7 @@ export const Message = () => {
     setTimeout(() => dispatch(removeApiMsg()), 4000);
 
     return (
-        <Box sx={{ width: '100%' }} className="api-response-msg mt-2">
+        <Box sx={{ width: '500px' }} className="api-response-msg">
             {
                 ternary((apiMsg),
                     (
