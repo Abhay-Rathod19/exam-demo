@@ -1,50 +1,42 @@
 import { useRoutes } from "react-router";
 import { UserAction } from "../presentation/UserAction";
-import { loginFormData } from "../constants/userModule/loginFmData";
-import { signUpFormInput } from "../constants/userModule/signupFmData";
-import { forgotPassData } from "../constants/userModule/forgotPsData";
-import { newPassData } from "../constants/userModule/forgotPsData";
-import { resetPassData } from "../constants/userModule/forgotPsData";
 import { StudentDetails } from "../containers/StudentDetails";
-import {
-    onUserLogIn,
-    onUserSignUp,
-    onUserForgetPass,
-    onUserNewPass,
-    onUserResetPass,
-} from "../helpers/userModules/userActions";
+// import { loginFormData } from "../constants/userModule/loginFmData";
+// import { signUpFormInput } from "../constants/userModule/signupFmData";
+// import { forgotPassData } from "../constants/userModule/forgotPsData";
+// import { newPassData } from "../constants/userModule/forgotPsData";
+// import { resetPassData } from "../constants/userModule/forgotPsData";
+// import {
+//     onUserLogIn,
+//     onUserSignUp,
+//     onUserForgetPass,
+//     onUserNewPass,
+//     onUserResetPass,
+// } from "../helpers/userModules/userActions";
 import { DashBoardComp } from "../presentation/DashBoard";
 import { AllStudent } from "../presentation/AllStudent";
 import { VerifiedStd } from "../presentation/VerifiedStd";
 import { PrivateRoute } from "./private/PrivateRoute";
 import { PublicRoute } from "./public/PublicRoute";
-import { StudentsData } from "../presentation/StudentsData";
+// --------------------------
+import { userFgtPsProps, userLoginProps, userNewPsProps, userRstPsProps, userSignUpProps } from "../constants/userModule/routesProps";
+import { CreateExam } from "../containers/CreateExam";
 
 export const UserRoutes = () => {
     const userRoutes = useRoutes([
         {
             path: "/",
             element: (
-                <PublicRoute> 
-                <UserAction
-                    actionType="Log in"
-                    formData={loginFormData}
-                    formName="LoginData"
-                    onFormSubmit={onUserLogIn}
-                />
-                </PublicRoute> 
+                // <PublicRoute>  
+                <UserAction {...userLoginProps} />
+                // </PublicRoute> 
             ),
         },
         {
             path: "/signup",
             element: (
                 <PublicRoute>
-                    <UserAction
-                        actionType="Sign up"
-                        formData={signUpFormInput}
-                        formName="SignupData"
-                        onFormSubmit={onUserSignUp}
-                    />
+                    <UserAction {...userSignUpProps} />
                 </PublicRoute>
             ),
         },
@@ -52,12 +44,7 @@ export const UserRoutes = () => {
             path: "/forgetpassword",
             element: (
                 <PublicRoute>
-                    <UserAction
-                        actionType="Forgot password"
-                        formData={forgotPassData}
-                        formName="ForgotPassData"
-                        onFormSubmit={onUserForgetPass}
-                    />
+                    <UserAction {...userFgtPsProps} />
                 </PublicRoute>
             ),
         },
@@ -65,24 +52,14 @@ export const UserRoutes = () => {
             path: "/newPassword",
             element: (
                 <PublicRoute>
-                    <UserAction
-                        actionType="New password"
-                        formData={newPassData}
-                        formName="NewPassData"
-                        onFormSubmit={onUserNewPass}
-                    />
+                    <UserAction {...userNewPsProps} />
                 </PublicRoute>
             ),
         },
         {
             path: "/resetpassword",
             element: (
-                <UserAction
-                    actionType="Reset password"
-                    formData={resetPassData}
-                    formName="ResetPassData"
-                    onFormSubmit={onUserResetPass}
-                />
+                <UserAction {...userRstPsProps} />
             ),
         },
         {
@@ -97,8 +74,7 @@ export const UserRoutes = () => {
                     path: "Teachers",
                     element: (
                         <PrivateRoute routeRole="teacher">
-                            <AllStudent/>
-                            {/* <StudentsData studentLabel='All Students Data' pathUrl='/dashboard/Teachers' /> */}
+                            <AllStudent />
                         </PrivateRoute>
                     ),
                 },
@@ -106,8 +82,7 @@ export const UserRoutes = () => {
                     path: "StudentForExam",
                     element: (
                         <PrivateRoute routeRole="teacher">
-                        <VerifiedStd/>
-                            {/* <StudentsData studentLabel='Verified Students Data' pathUrl='/dashboard/Teachers/StudentForExam' /> */}
+                            <VerifiedStd />
                         </PrivateRoute>
                     ),
                 },
@@ -116,6 +91,14 @@ export const UserRoutes = () => {
                     element: (
                         <PrivateRoute routeRole="teacher">
                             <StudentDetails />
+                        </PrivateRoute>
+                    ),
+                },
+                {
+                    path: "createExam",
+                    element: (
+                        <PrivateRoute routeRole="teacher">
+                            <CreateExam />
                         </PrivateRoute>
                     ),
                 },

@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
@@ -25,14 +25,14 @@ export const StudentDetails = () => {
     const stdDetails = useSelector((state) => state?.api?.apiData);
 
     return (
-        <Box>
+        <Box className='student-data-container' sx={{ p: '0 20px' }}>
             <ExmTypography>Student Details</ExmTypography>
             {loading ? (
                 <ExmSpinnerCom />
             ) : (
                 stdDetails?.map((data, index) => {
                     return (
-                        <Fragment key={`std-det-${index}`}>
+                        <Box key={`std-det-${index}`} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
                             <ExmTypography variant="subtitle1" sx={{ display: "flex" }}>
                                 Name : {data?.name}
                             </ExmTypography>
@@ -45,12 +45,13 @@ export const StudentDetails = () => {
                             {ternary(
                                 data?.Result?.length > 0,
                                 <ExmTableComponent
+                                    btnRequire={false}
                                     objectArray={data?.Result}
                                     key={`data-${index}`}
                                 />,
                                 ""
                             )}
-                        </Fragment>
+                        </Box>
                     );
                 })
             )}

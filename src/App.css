@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   height: 870px;
+  position: relative;
 }
 
 .user-sign-login-container {
@@ -34,17 +35,20 @@ a {
   /* height: 40px; */
 }
 
+.dashboard-sidebar {
+  /* position: fixed;
+  height: 100%; */
+}
 .dashboard-content-container {
-  /* display: flex;
-  justify-content: center;
-  align-items: start; */
-  display: grid;
+  /* position: absolute;
+  left: 9%; */
   width: 100%;
 }
 
-/* .table-edit {
-  width: 100%;
-} */
+.table-edit {
+  width: 1000px;
+}
+
 .table-edit,
 .table-edit tr,
 .table-edit th,
@@ -52,4 +56,8 @@ a {
   padding: 12px;
   text-align: center;
   border: 1px solid rgb(0, 0, 0);
+}
+
+.create-form-data {
+  margin-left: 110px !important;
 }

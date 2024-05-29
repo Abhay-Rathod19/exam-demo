@@ -3,7 +3,6 @@ import { fetchApiData } from "../../redux/slices/apiSlice";
 import { API_REQ_SUCCESS_CODE } from "../../constants/userModule/apiConstants";
 import { getFromLocalStorage, setToLocalStorage } from "../../utils/javaScript";
 import { addToLogUser } from "../../redux/slices/userSlice";
-import { json } from "react-router";
 
 export const onUserSignUp = async (formData, navigate, setFormData) => {
     const data = {
@@ -109,3 +108,5 @@ export const onUserResetPass = async (formData, navigate, setFormData) => {
         setFormData({});
     }
 };
+
+

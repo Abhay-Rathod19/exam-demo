@@ -9,14 +9,14 @@ export const sideOptList = [
     },
     {
         label: "Create exam",
-        link: "/dashboard/Teachers"
+        link: "/dashboard/createExam"
     },
     {
         label: "View exam",
-        link: "/dashboard/Teachers"
+        link: "/dashboard/createExam"
     },
     {
         label: "View exam details",
-        link: "/dashboard/Teachers"
+        link: "/dashboard/createExam"
     },
 ];

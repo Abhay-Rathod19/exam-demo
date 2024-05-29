@@ -8,7 +8,6 @@ export const PrivateRoute = ({ children, routeRole }) => {
     const lcStrRole = authenticateUser();
 
     if (userRole === routeRole || lcStrRole === routeRole) {
-        console.log("Protected");
         return children;
     }
     return <Navigate to='/' />

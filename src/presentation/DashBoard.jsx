@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { ExmButton } from "../shared/ExmButton";
 import { ExmTypography } from "../shared/ExmTypography";
 import { sideOptList } from "../constants/teacherModule/dashBoardData";
+import { Navbar } from "../components/Navbar";
+import { getFromLocalStorage } from "../utils/javaScript";
+
+const user = JSON.parse(getFromLocalStorage('LogInUser'))?.name;
 
 export const DashBoardComp = () => {
 
@@ -44,8 +48,8 @@ export const DashBoardComp = () => {
             </Box>
             <Box
                 className="dashboard-content-container"
-                sx={{ p: "20px 10px" }}
             >
+                <Navbar userName={user} />
                 <Outlet />
             </Box>
         </Box>
