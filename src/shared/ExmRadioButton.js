@@ -9,7 +9,7 @@ export const ExmRadioButton = ({ ...props }) => {
         <>
             <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group">
                 {
-                    radioField.map((field, index) => {
+                    radioField?.map((field, index) => {
                         return (
                             <React.Fragment key={`radio-${index}`}>
                                 <FormControlLabel value={field} control={<Radio onClick={props.onClick} />} label={field} />

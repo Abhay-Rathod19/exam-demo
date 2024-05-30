@@ -1,8 +1,14 @@
-import './App.css';
+import "./App.css";
+import { Message } from "./containers/Message";
+import { UserRoutes } from "./routes/userRoutes";
 
 function App() {
+
+
   return (
-    <div>
+    <div className="main-container">
+      <Message />
+      <UserRoutes />
     </div>
   );
 }
