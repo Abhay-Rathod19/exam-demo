@@ -21,6 +21,7 @@ import { PublicRoute } from "./public/PublicRoute";
 // --------------------------
 import { userFgtPsProps, userLoginProps, userNewPsProps, userRstPsProps, userSignUpProps } from "../constants/userModule/routesProps";
 import { CreateExam } from "../containers/CreateExam";
+import { ViewExam } from "../containers/ViewExam";
 
 export const UserRoutes = () => {
     const userRoutes = useRoutes([
@@ -99,6 +100,14 @@ export const UserRoutes = () => {
                     element: (
                         <PrivateRoute routeRole="teacher">
                             <CreateExam />
+                        </PrivateRoute>
+                    ),
+                },
+                {
+                    path: "viewExam",
+                    element: (
+                        <PrivateRoute routeRole="teacher">
+                            <ViewExam />
                         </PrivateRoute>
                     ),
                 },

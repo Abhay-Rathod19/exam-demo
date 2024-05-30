@@ -38,6 +38,7 @@ export const CreateExam = () => {
     const createExam = (e, id) => {
         console.log(e.target.value);
     }
+
     return (
         <Stack sx={{ p: 2 }} spacing={3}>
 
@@ -52,15 +53,17 @@ export const CreateExam = () => {
             <ExmTypography>
                 Fill form to create exam
             </ExmTypography>
-            <CreateExmForm subName='Testing' qusNo={qusNo} setQusNum={setQusNum} />
-            <Stack direction='row' spacing={10} >
-                <ExmButton onClick={makePrevQus} disabled={ternary((qusNo === 1), true, false)}>
-                    Back
-                </ExmButton>
-                <ExmButton onClick={makeNextQus} disabled={ternary((qusNo === totalQus), true, false)}>
-                    Next
-                </ExmButton>
-            </Stack>
+            <CreateExmForm
+                subName='Testing'
+                qusNo={qusNo}
+                setQusNum={setQusNum}
+                totalQus={totalQus}
+                makeNextQus={makeNextQus}
+                makePrevQus={makePrevQus}
+                subject={sub}
+                note={note}
+            />
+
 
             {/* {
                 createExamData?.map((qus, index) => {

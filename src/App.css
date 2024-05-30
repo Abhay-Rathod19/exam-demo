@@ -32,7 +32,10 @@ a {
 }
 
 .api-response-msg {
-  /* height: 40px; */
+  position: absolute;
+  top: 10%;
+  left: 38%;
+  z-index: 5;
 }
 
 .dashboard-sidebar {

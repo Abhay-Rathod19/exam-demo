@@ -13,7 +13,7 @@ export const sideOptList = [
     },
     {
         label: "View exam",
-        link: "/dashboard/createExam"
+        link: "/dashboard/viewExam"
     },
     {
         label: "View exam details",

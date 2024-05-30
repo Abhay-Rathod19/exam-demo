@@ -4,8 +4,14 @@ import { Pagination } from "@mui/material";
 import { Box } from "@mui/material";
 import { ExmButton } from "./ExmButton";
 import { objectKeys, ternary } from "../utils/javaScript";
+import { ExmTypography } from "./ExmTypography";
 
-export const ExmTableComponent = ({ objectArray, btnRequire = true }) => {
+export const ExmTableComponent = ({
+    objectArray,
+    btnRequire = true,
+    showNotes = false,
+    btnLabel = "View Details",
+}) => {
     const [currPage, setCurrPage] = useState(1);
 
     if (objectArray[0]) {
@@ -50,14 +56,32 @@ export const ExmTableComponent = ({ objectArray, btnRequire = true }) => {
                                         {column?.map((v, index) => {
                                             return (
                                                 <React.Fragment key={index}>
-                                                    <td>
-                                                        {ternary(
-                                                            typeof data[v] === "object",
-                                                            "Answers",
-                                                            data[v]
-                                                        )}
-                                                    </td>
-                                                    {/* <td>{data[v]}</td> */}
+
+                                                    {
+                                                        showNotes ?
+                                                            (
+                                                                <td>
+                                                                    {typeof data[v] === "object"
+                                                                        ? data[v]?.map((data, idx) => (
+                                                                            <ExmTypography sx={{ fontSize: '16px' }} key={`n-${idx}`}>
+                                                                                {data}
+                                                                            </ExmTypography>
+                                                                        ))
+                                                                        : data[v]}
+                                                                </td>
+                                                            )
+                                                            :
+                                                            (
+                                                                <td>
+                                                                    {
+                                                                        ternary(
+                                                                            typeof data[v] === "object",
+                                                                            "Answers",
+                                                                            data[v]
+                                                                        )}
+                                                                </td>
+                                                            )
+                                                    }
                                                 </React.Fragment>
                                             );
                                         })}
@@ -66,7 +90,7 @@ export const ExmTableComponent = ({ objectArray, btnRequire = true }) => {
                                             <td>
                                                 <Link to={`/dashboard/StudentDetails?id=${data._id}`}>
                                                     <ExmButton sx={{ height: "25" }}>
-                                                        View Details
+                                                        {btnLabel}
                                                     </ExmButton>
                                                 </Link>
                                             </td>
