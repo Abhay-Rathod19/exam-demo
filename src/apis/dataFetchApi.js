@@ -22,7 +22,6 @@ userDataApi.interceptors.request.use(
     }
 );
 
-
 userDataApi.interceptors.response.use(
     (response) => {
         console.log(`Response is : `, response);

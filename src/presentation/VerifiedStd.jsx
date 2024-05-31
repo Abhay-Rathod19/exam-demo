@@ -14,7 +14,8 @@ export const VerifiedStd = () => {
     useEffect(() => {
         dispatch(removeApiData());
         dispatch(fetchApiData({ url: '/dashboard/Teachers/StudentForExam' }));
-    }, []);
+    }, [dispatch]);
+
 
     const VerifiedStudentData = useSelector((state) => state?.api?.apiData);
 

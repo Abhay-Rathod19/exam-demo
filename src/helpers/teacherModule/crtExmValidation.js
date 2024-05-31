@@ -33,3 +33,35 @@ export const valCreateExm = (QusData, dispatch, allErrors, name, value) => {
     }
     return isValid;
 };
+
+
+
+export const valCrtExmForm = (name, value, examDataObj, dispatch) => {
+
+    let validData = true;
+
+    if (examDataObj) {
+        for (let field in examDataObj) {
+            if (typeof (examDataObj[field]) === 'string') {
+                if (!examDataObj[field]) {
+                    validData = false;
+                    dispatch(addToAllErr({ ['Subject']: `Subject field is required` }));
+                }
+            } else {
+                if (!(examDataObj[field].filter((ele) => ele).length)) {
+                    validData = false;
+                    dispatch(addToAllErr({ ['Notes']: `Notes field is required` }));
+                }
+            }
+        }
+        return validData;
+    } else {
+        if (!value) {
+            dispatch(addToAllErr({ [name]: `${name} field is required` }));
+            validData = false;
+        } else {
+            dispatch(addToAllErr({ [name]: `` }));
+        }
+        return validData;
+    }
+}

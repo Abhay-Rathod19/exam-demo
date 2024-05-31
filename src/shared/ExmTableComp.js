@@ -5,6 +5,9 @@ import { Box } from "@mui/material";
 import { ExmButton } from "./ExmButton";
 import { objectKeys, ternary } from "../utils/javaScript";
 import { ExmTypography } from "./ExmTypography";
+import { addExmNameData } from "../redux/slices/teacherSlice";
+import { useDispatch } from "react-redux";
+
 
 export const ExmTableComponent = ({
   objectArray,
@@ -14,6 +17,11 @@ export const ExmTableComponent = ({
   urlPath,
 }) => {
   const [currPage, setCurrPage] = useState(1);
+  const dispatch = useDispatch();
+
+  const putExmDetailsRdx = (details) => {
+    dispatch(addExmNameData(details));
+  }
 
   if (objectArray[0]) {
     const column = objectKeys(objectArray[0]);
@@ -61,13 +69,13 @@ export const ExmTableComponent = ({
                             <td>
                               {typeof data[v] === "object"
                                 ? data[v]?.map((data, idx) => (
-                                    <ExmTypography
-                                      sx={{ fontSize: "16px" }}
-                                      key={`n-${idx}`}
-                                    >
-                                      {data}
-                                    </ExmTypography>
-                                  ))
+                                  <ExmTypography
+                                    sx={{ fontSize: "16px" }}
+                                    key={`n-${idx}`}
+                                  >
+                                    {data}
+                                  </ExmTypography>
+                                ))
                                 : data[v]}
                             </td>
                           ) : (
@@ -86,7 +94,7 @@ export const ExmTableComponent = ({
                     {btnRequire ? (
                       <td>
                         <Link to={`${urlPath}${data._id}`}>
-                          <ExmButton sx={{ height: "25" }}>
+                          <ExmButton sx={{ height: "25" }} onClick={() => putExmDetailsRdx(data)}>
                             {btnLabel}
                           </ExmButton>
                         </Link>

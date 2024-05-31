@@ -7,6 +7,7 @@ import { ExmTableComponent } from "../shared/ExmTableComp";
 import { ExmTypography } from "../shared/ExmTypography";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { STUDENT_DETAILS_API } from "../constants/userModule/apiConstants";
+import { getAllStdData } from "../helpers/teacherModule/teacherActions";
 
 export const AllStudent = () => {
 
@@ -14,11 +15,10 @@ export const AllStudent = () => {
     const loading = useSelector((state) => state.api.loading);
 
     useEffect(() => {
-        dispatch(removeApiData());
-        dispatch(fetchApiData({ url: '/dashboard/Teachers' }));
-    }, []);
+        getAllStdData();
+    }, [dispatch]);
 
-    const allStudentData = useSelector((state) => state?.api?.apiData);
+    const allStudentData = useSelector((state) => state?.teacher?.studentData.allStudent);
 
     return (
         <Box sx={{ textAlign: "center" }}>

@@ -6,7 +6,7 @@ import { AllStudent } from "../presentation/AllStudent";
 import { VerifiedStd } from "../presentation/VerifiedStd";
 import { PrivateRoute } from "./private/PrivateRoute";
 import { PublicRoute } from "./public/PublicRoute";
-import { CreateExam } from "../containers/CreateExam";
+import { ExmCrtMain } from "../containers/ExmCrtMain";
 import { ViewExam } from "../containers/ViewExam";
 import { ExamDetails } from "../containers/ExamDetails";
 import {
@@ -91,7 +91,7 @@ export const UserRoutes = () => {
                     path: "createExam",
                     element: (
                         <PrivateRoute routeRole="teacher">
-                            <CreateExam />
+                            <ExmCrtMain />
                         </PrivateRoute>
                     ),
                 },

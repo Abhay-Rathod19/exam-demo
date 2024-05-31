@@ -20,7 +20,7 @@ export const StudentDetails = () => {
         dispatch(
             fetchApiData({ url: `/dashboard/Teachers/viewStudentDetail?id=${stdId}` })
         );
-    }, []);
+    }, [dispatch]);
 
     const stdDetails = useSelector((state) => state?.api?.apiData);
 

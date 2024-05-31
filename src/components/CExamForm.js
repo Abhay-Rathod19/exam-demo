@@ -11,13 +11,7 @@ import { objectValues } from "../utils/javaScript";
 import { ExmTypography } from "../shared/ExmTypography";
 import { addToAllErr } from "../redux/slices/teacherSlice";
 
-export const CExamForm = ({
-    formData,
-    setFormData,
-    currQus,
-    setCurrQus,
-}) => {
-
+export const CExamForm = ({ formData, setFormData, currQus, setCurrQus }) => {
     const dispatch = useDispatch();
     const allErrors = useSelector((state) => state?.teacher?.allErrors);
     const dataLimit = 1;
@@ -27,7 +21,7 @@ export const CExamForm = ({
 
     const changeQus = (e, index) => {
         const { name, value } = e.target;
-        valCreateExm('', dispatch, '', 'question', value);
+        valCreateExm("", dispatch, "", "question", value);
         const updatedData = [...formData];
         updatedData[index] = {
             ...updatedData[index],
@@ -38,24 +32,29 @@ export const CExamForm = ({
 
     const changeOption = (e, questionIndex, optionIndex, radio) => {
         const { value } = e.target;
-        valCreateExm('', dispatch, '', `opt-${optionIndex}`, value);
-        const updatedData = [...formData];
+        valCreateExm("", dispatch, "", `opt-${optionIndex}`, value);
+        const updatedData = structuredClone(formData);
         const optData = updatedData[questionIndex].options;
         if (!radio) {
             if (optData.includes(value)) {
-                dispatch(addToAllErr({ [`opt-${optionIndex}`]: "This is repeated value" }));
+                dispatch(
+                    addToAllErr({ [`opt-${optionIndex}`]: "This is repeated value" })
+                );
             }
         }
         updatedData[questionIndex].options[optionIndex] = value;
         updatedData[questionIndex].answer = value;
         if (value.length > 0) {
-            dispatch(addToAllErr({ ['answer']: "" }));
+            dispatch(addToAllErr({ ["answer"]: "" }));
         }
         setFormData(updatedData);
     };
 
     const handleNextQus = (e, qusNum) => {
-        if (valCreateExm(QusData, dispatch, allErrors) && objectValues(allErrors).filter((ele) => ele).length === 0) {
+        if (
+            valCreateExm(QusData, dispatch, allErrors) &&
+            objectValues(allErrors).filter((ele) => ele).length === 0
+        ) {
             const newField = {
                 options: ["", "", "", ""],
                 question: "",
@@ -75,18 +74,22 @@ export const CExamForm = ({
                     <Fragment key={`qus-${ind}`}>
                         <Stack direction="row" spacing={2}>
                             <ExmLabel className="mt-1">
-                                Enter question {currQus + 1} :{" "}
+                                Question {currQus + 1} :
                             </ExmLabel>
                             <ExmInputField
                                 name={`qus-${currQus}`}
                                 value={data.question || ""}
                                 onChange={(e) => changeQus(e, currQus)}
                             />
-                            <p className="mt-2 text-danger">{allErrors['question'] ? allErrors['question'] : ''}</p>
+                            <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
+                                {ternary(allErrors["question"], allErrors["question"], "")}
+                            </ExmTypography>
                         </Stack>
-                        <Stack direction='row' spacing={2}>
-                            <ExmTypography>Select your answer : </ExmTypography>
-                            <p className="mt-1 text-danger">{allErrors['answer'] ? allErrors['answer'] : ''}</p>
+                        <Stack direction="row" spacing={2}>
+                            <ExmLabel>Select your answer :</ExmLabel>
+                            <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
+                                {ternary(allErrors["answer"], allErrors["answer"], "")}
+                            </ExmTypography>
                         </Stack>
                         {data.options.map((opt, optIndex) => {
                             return (
@@ -104,13 +107,21 @@ export const CExamForm = ({
                                             true,
                                             false
                                         )}
-                                        onChange={(e) => changeOption(e, currQus, optIndex, 'radio')}
+                                        onChange={(e) =>
+                                            changeOption(e, currQus, optIndex, "radio")
+                                        }
                                     />
                                     <ExmInputField
                                         value={opt || ""}
                                         onChange={(e) => changeOption(e, currQus, optIndex)}
                                     />
-                                    <p className="mt-2 text-danger"> {allErrors[`opt-${optIndex}`] ? allErrors[`opt-${optIndex}`] : ''}</p>
+                                    <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
+                                        {ternary(
+                                            allErrors[`opt-${optIndex}`],
+                                            allErrors[`opt-${optIndex}`],
+                                            ""
+                                        )}
+                                    </ExmTypography>
                                 </Stack>
                             );
                         })}
@@ -121,7 +132,14 @@ export const CExamForm = ({
                             spacing={10}
                         >
                             <ExmButton
-                                onClick={() => setCurrQus((n) => n - 1)}
+                                onClick={() => {
+                                    if (
+                                        valCreateExm(QusData, dispatch, allErrors) &&
+                                        objectValues(allErrors).filter((ele) => ele).length === 0
+                                    ) {
+                                        setCurrQus((n) => n - 1)
+                                    }
+                                }}
                                 sx={{ width: 160 }}
                                 disabled={ternary(currQus === 0, true, false)}
                             >
@@ -132,7 +150,9 @@ export const CExamForm = ({
                                 sx={{ width: 160 }}
                                 disabled={ternary(currQus === 14, true, false)}
                             >
-                                Next
+                                {
+                                    ternary(currQus === 14, 'Post Exam', 'Next')
+                                }
                             </ExmButton>
                         </Stack>
                     </Fragment>

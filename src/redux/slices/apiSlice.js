@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { userDataApi } from "../../apis/userApi";
+import { userDataApi } from "../../apis/dataFetchApi";
 import { setToLocalStorage } from "../../utils/javaScript";
 
 const initialState = {
