@@ -5,6 +5,7 @@ import { fetchApiData, removeApiData } from "../redux/slices/apiSlice";
 import { ExmTableComponent } from "../shared/ExmTableComp";
 import { ExmTypography } from "../shared/ExmTypography";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
+import { STUDENT_DETAILS_API } from "../constants/userModule/apiConstants";
 
 export const VerifiedStd = () => {
 
@@ -29,7 +30,7 @@ export const VerifiedStd = () => {
                         VerifiedStudentData ? (
                             <>
                                 <Box className='allstud-data-container' sx={{ display: 'flex', justifyContent: "center" }}>
-                                    <ExmTableComponent objectArray={VerifiedStudentData} />
+                                    <ExmTableComponent objectArray={VerifiedStudentData} urlPath={STUDENT_DETAILS_API} />
                                 </Box>
                             </>
                         ) : ""

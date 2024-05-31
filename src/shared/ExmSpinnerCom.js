@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
 
-export const ExmSpinnerCom = () => {
-    return <CircularProgress sx={{ m: 5 }} />;
+export const ExmSpinnerCom = ({ ...props }) => {
+    return <CircularProgress sx={{ m: 5 }} {...props} />;
 };

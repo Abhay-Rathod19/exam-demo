@@ -1,37 +1,38 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import { reset } from '@reduxjs/toolkit';
-import { removeApiData, fetchApiData } from '../redux/slices/apiSlice';
 import { ExmTableComponent } from '../shared/ExmTableComp';
 import { ExmSpinnerCom } from '../shared/ExmSpinnerCom';
 import { ExmTypography } from '../shared/ExmTypography';
+import { viewAllExam } from '../helpers/teacherModule/teacherActions';
+import { VIEW_EXAM_DETAILS_API } from '../constants/userModule/apiConstants';
 
 export const ViewExam = () => {
 
-    const dispatch = useDispatch();
     const loading = useSelector((state) => state?.api?.loading);
-    const viewExamData = useSelector((state) => state?.api?.apiData);
+    const viewExamData = useSelector((state) => state?.teacher?.allExams);
 
     useEffect(() => {
-        dispatch(removeApiData());
-        dispatch(reset());
-        dispatch(
-            fetchApiData({ url: `/dashboard/Teachers/viewExam` })
-        );
+        viewAllExam();
     }, []);
 
     return (
         <Box className='view-exam-details' sx={{ textAlign: "center" }}>
             <ExmTypography>
-                Exam
+                Exams
             </ExmTypography>
             {
                 loading ?
                     <ExmSpinnerCom /> :
-                    (<ExmTableComponent objectArray={viewExamData} showNotes={true} btnLabel='View Exam' />)
+                    (
+                        <ExmTableComponent
+                            objectArray={viewExamData}
+                            showNotes={true}
+                            btnLabel='Edit Exam'
+                            urlPath={VIEW_EXAM_DETAILS_API}
+                        />
+                    )
             }
-
         </Box>
     )
 };

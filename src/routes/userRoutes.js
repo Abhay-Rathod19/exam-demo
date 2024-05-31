@@ -1,36 +1,30 @@
 import { useRoutes } from "react-router";
 import { UserAction } from "../presentation/UserAction";
 import { StudentDetails } from "../containers/StudentDetails";
-// import { loginFormData } from "../constants/userModule/loginFmData";
-// import { signUpFormInput } from "../constants/userModule/signupFmData";
-// import { forgotPassData } from "../constants/userModule/forgotPsData";
-// import { newPassData } from "../constants/userModule/forgotPsData";
-// import { resetPassData } from "../constants/userModule/forgotPsData";
-// import {
-//     onUserLogIn,
-//     onUserSignUp,
-//     onUserForgetPass,
-//     onUserNewPass,
-//     onUserResetPass,
-// } from "../helpers/userModules/userActions";
 import { DashBoardComp } from "../presentation/DashBoard";
 import { AllStudent } from "../presentation/AllStudent";
 import { VerifiedStd } from "../presentation/VerifiedStd";
 import { PrivateRoute } from "./private/PrivateRoute";
 import { PublicRoute } from "./public/PublicRoute";
-// --------------------------
-import { userFgtPsProps, userLoginProps, userNewPsProps, userRstPsProps, userSignUpProps } from "../constants/userModule/routesProps";
 import { CreateExam } from "../containers/CreateExam";
 import { ViewExam } from "../containers/ViewExam";
+import { ExamDetails } from "../containers/ExamDetails";
+import {
+    userFgtPsProps,
+    userLoginProps,
+    userNewPsProps,
+    userRstPsProps,
+    userSignUpProps,
+} from "../constants/userModule/routesProps";
 
 export const UserRoutes = () => {
     const userRoutes = useRoutes([
         {
             path: "/",
             element: (
-                // <PublicRoute>  
+                // <PublicRoute>
                 <UserAction {...userLoginProps} />
-                // </PublicRoute> 
+                // </PublicRoute>
             ),
         },
         {
@@ -59,9 +53,7 @@ export const UserRoutes = () => {
         },
         {
             path: "/resetpassword",
-            element: (
-                <UserAction {...userRstPsProps} />
-            ),
+            element: <UserAction {...userRstPsProps} />,
         },
         {
             path: "/dashboard",
@@ -108,6 +100,14 @@ export const UserRoutes = () => {
                     element: (
                         <PrivateRoute routeRole="teacher">
                             <ViewExam />
+                        </PrivateRoute>
+                    ),
+                },
+                {
+                    path: "teachers/examDetail/*",
+                    element: (
+                        <PrivateRoute routeRole="teacher">
+                            <ExamDetails />
                         </PrivateRoute>
                     ),
                 },

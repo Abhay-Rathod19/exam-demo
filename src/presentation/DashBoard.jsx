@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ExmButton } from "../shared/ExmButton";
 import { ExmTypography } from "../shared/ExmTypography";
-import { sideOptList } from "../constants/teacherModule/dashBoardData";
+import { sideOptList } from "../description/teacher.description";
 import { Navbar } from "../components/Navbar";
 import { getFromLocalStorage } from "../utils/javaScript";
 

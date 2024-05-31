@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addSubmitedData } from "../redux/slices/userSlice";
 import { fetchApiData } from "../redux/slices/apiSlice";
 import { onUserLogIn, onUserSignUp } from "../helpers/userModules/userActions";
+import { ExmSpinnerCom } from "./ExmSpinnerCom";
 
 export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
 
@@ -157,8 +158,13 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
                     case "button":
                         return (
                             <Stack key={`text-${index}`}>
+
                                 <ExmButton type={btnType} sx={{ ...styles }}>
-                                    {apiLoading ? "Wait" : ""}  {btnValue}
+                                    {
+                                        apiLoading ?
+                                            'wait'
+                                            : ""
+                                    }  {btnValue}
                                 </ExmButton>
                             </Stack>
                         );
