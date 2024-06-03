@@ -26,8 +26,8 @@ export const CreateExam = ({
   const exmRelaData = JSON.parse(getFromLocalStorage("ExamDetails"))
 
   const [postExm, setPostExm] = useState(false);
-  const [sub, setSub] = useState(exmDetails.examName || exmRelaData.name || "");
-  const [note, setNote] = useState(exmDetails.notes || exmRelaData.notes[0] || "");
+  const [sub, setSub] = useState(exmDetails?.examName || exmRelaData?.name || "");
+  const [note, setNote] = useState(exmDetails?.notes || exmRelaData?.notes[0] || "");
   const [formData, setFormData] = useState(data);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -55,18 +55,20 @@ export const CreateExam = ({
       setNote();
       setSub();
     }
-  }, [data]);
+  }, []);
 
   return (
     <Stack sx={{ px: 2 }} spacing={3}>
       <Stack direction="row" spacing={2} alignItems="center">
         <ExmLabel>Subject name : </ExmLabel>
         <ExmInputField
+          id="exm-input-fields"
           value={sub || ""}
           onChange={(e) => {
             setSub(e.target.value);
             valCrtExmForm(`Subject`, e.target.value, "", dispatch);
           }}
+          disabled={ternary(examActype === "Submit Exam", true, false)}
         />
         <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
           {ternary(allErrors["Subject"], allErrors["Subject"], "")}
@@ -75,11 +77,13 @@ export const CreateExam = ({
       <Stack direction="row" spacing={3.2} alignItems="center">
         <ExmLabel>Exam Notes : </ExmLabel>
         <ExmInputField
+          id="exm-input-fields"
           value={note || ""}
           onChange={(e) => {
             setNote(e.target.value);
             valCrtExmForm(`Notes`, e.target.value, "", dispatch);
           }}
+          disabled={ternary(examActype === "Submit Exam", true, false)}
         />
         <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
           {ternary(allErrors["Notes"], allErrors["Notes"], "")}

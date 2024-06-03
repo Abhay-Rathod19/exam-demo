@@ -1,4 +1,6 @@
 import { exmStore } from "../../redux/store/store";
+import { fetchApiData } from "../../redux/slices/apiSlice";
+import { getFromLocalStorage, setToLocalStorage } from "../../utils/javaScript";
 import {
   GET,
   POST,
@@ -11,13 +13,13 @@ import {
   GET_STUDENT_PROFILE,
   API_REQ_FAIL_CODE,
 } from "../../constants/userModule/apiConstants";
-import { fetchApiData } from "../../redux/slices/apiSlice";
 import {
   setExamPaper,
   setAllExams,
   setStdProfile,
   setNoticeMsg
 } from "../../redux/slices/studentSlice";
+
 
 export const getStudentProfile = async () => {
   const request = await exmStore.dispatch(
@@ -80,6 +82,9 @@ export const changeStdName = async (formData, navigate,) => {
     })
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
+    const useData = JSON.parse(getFromLocalStorage("LogInUser"));
+    const updUserData = { ...useData, name: formData?.name };
+    setToLocalStorage("LogInUser", JSON.stringify(updUserData));
     navigate("/dashboard/student/myProfile");
   }
 }

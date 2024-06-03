@@ -17,7 +17,6 @@ export const GiveExamComp = () => {
 
   const examPaper = useSelector((state) => state?.student?.examPaper);
   const noticeMsg = useSelector((state) => state?.student?.stdNoticeMsg);
-  console.log(`OUT coming data are : `, examPaper);
 
   return (
     <>
@@ -60,31 +59,6 @@ export const GiveExamComp = () => {
         <ExmSpinnerCom />
       )} */}
 
-      {/* {!noticeMsg ? (
-        examPaper.length > 0 ? (
-          <CreateExam
-            data={examPaper}
-            exmId={examId}
-            examActype="Submit Exam"
-          />
-        ) : (
-          <ExmSpinnerCom />
-        )
-      ) : (
-        <AlreadyExmGiven />
-      )} */}
-
-      {/* {
-        examPaper.length > 0 ? (
-          <CreateExam
-            data={examPaper}
-            exmId={examId}
-            examActype="Submit Exam"
-          />
-        ) : (
-          <ExmSpinnerCom />
-        )
-      } */}
     </>
   );
 };

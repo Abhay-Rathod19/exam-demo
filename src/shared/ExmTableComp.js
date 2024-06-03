@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { ExmButton } from "./ExmButton";
 import { objectKeys, setToLocalStorage, ternary } from "../utils/javaScript";
 import { ExmTypography } from "./ExmTypography";
-import { addExmNameData } from "../redux/slices/teacherSlice";
+import { addExmNameData, removeAllQues } from "../redux/slices/teacherSlice";
 import { removeExmPaper, rmvNoticeMsg } from "../redux/slices/studentSlice";
 
 
@@ -24,6 +24,7 @@ export const ExmTableComponent = ({
     if (details.subjectName && details.notes) {
       dispatch(rmvNoticeMsg());
       dispatch(removeExmPaper());
+      dispatch(removeAllQues());
       const exmDetails = { name: details.subjectName, notes: details.notes };
       setToLocalStorage("ExamDetails", JSON.stringify(exmDetails));
       dispatch(addExmNameData(details));

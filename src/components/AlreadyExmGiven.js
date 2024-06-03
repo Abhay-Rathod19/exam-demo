@@ -22,7 +22,7 @@ export const AlreadyExmGiven = () => {
                 <ExmTypography variant="h6" className="text-danger">
                     Notice :  This exam is already given.
                 </ExmTypography>
-                <ExmButton onClick={handleBackClick}>Go back</ExmButton>
+                <ExmButton sx={{ width: "280px", m: "10px 0" }} onClick={handleBackClick}>Go back</ExmButton>
             </Stack>
         </>
     )

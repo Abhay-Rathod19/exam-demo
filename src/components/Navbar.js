@@ -6,12 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { ExmButton } from '../shared/ExmButton';
 import { useNavigate } from 'react-router';
+import { ExmButton } from '../shared/ExmButton';
+import { getFromLocalStorage } from '../utils/javaScript';
 
-export const Navbar = ({ userName = 'user' }) => {
+export const Navbar = () => {
 
     const navigate = useNavigate();
+    const userName = JSON.parse(getFromLocalStorage("LogInUser"))?.name;
 
     const onUserLogout = () => {
         localStorage.removeItem('LogInUser');

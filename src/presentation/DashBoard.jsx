@@ -6,9 +6,8 @@ import { ExmTypography } from "../shared/ExmTypography";
 import { teachSideBarOpts } from "../description/teacher.description";
 import { studSideBarOpts } from "../description/student.description";
 import { Navbar } from "../components/Navbar";
-import { getFromLocalStorage, ternary } from "../utils/javaScript";
+import {ternary } from "../utils/javaScript";
 
-const user = JSON.parse(getFromLocalStorage("LogInUser"))?.name;
 
 export const DashBoardComp = ({ role }) => {
   const sideBarList = ternary(
@@ -16,6 +15,7 @@ export const DashBoardComp = ({ role }) => {
     studSideBarOpts,
     teachSideBarOpts
   );
+
   return (
     <Box
       sx={{ width: 1, display: "flex", height: "100%" }}
@@ -52,7 +52,7 @@ export const DashBoardComp = ({ role }) => {
         })}
       </Box>
       <Box className="dashboard-content-container">
-        <Navbar userName={user} />
+        <Navbar />
         <Outlet />
       </Box>
     </Box>

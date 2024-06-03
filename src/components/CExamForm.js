@@ -94,6 +94,7 @@ export const CExamForm = ({
             <Stack direction="row" spacing={2}>
               <ExmLabel className="mt-1">Question {currQus + 1} :</ExmLabel>
               <ExmInputField
+                id="exm-input-fields"
                 name={`qus-${currQus}`}
                 value={data?.question || ""}
                 onChange={(e) => changeQus(e, currQus)}
@@ -146,6 +147,7 @@ export const CExamForm = ({
                   )}
 
                   <ExmInputField
+                    id="exm-input-fields"
                     value={opt || ""}
                     onChange={(e) => changeOption(e, currQus, optIndex)}
                     // readOnly={ternary(examActype === "Submit Exam", true, false)}

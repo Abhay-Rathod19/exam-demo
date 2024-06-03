@@ -21,14 +21,14 @@ export const StudentProfile = () => {
         <ExmSpinnerCom />
       ) : (
         <Box sx={{ m: "5px 0 0 20px" }}>
-          <Stack direction="column" >
-            <ExmTypography>Name : {studentDetails?.name}</ExmTypography>
-            <ExmTypography>Id : {studentDetails?._id}</ExmTypography>
-            <ExmTypography>Email : {studentDetails?.email}</ExmTypography>
-            <ExmTypography>Role : {studentDetails?.role}</ExmTypography>
+          <Stack direction="column" spacing={1} >
+            <ExmTypography variant="para">Name : {studentDetails?.name}</ExmTypography>
+            <ExmTypography variant="para">Id : {studentDetails?._id}</ExmTypography>
+            <ExmTypography variant="para">Email : {studentDetails?.email}</ExmTypography>
+            <ExmTypography variant="para">Role : {studentDetails?.role}</ExmTypography>
           </Stack>
           <Link to="/dashboard/student/editProfile">
-            <ExmButton>Change Name</ExmButton>
+            <ExmButton sx={{ m: "30px 0" }}>Change Name</ExmButton>
           </Link>
         </Box>
       )}

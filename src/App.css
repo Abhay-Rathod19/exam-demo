@@ -64,3 +64,10 @@ a {
 .create-form-data {
   margin-left: 110px !important;
 }
+
+#exm-input-fields {
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: rgb(245, 245, 245);
+  -webkit-text-fill-color: black;
+}
