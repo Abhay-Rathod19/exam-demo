@@ -23,11 +23,15 @@ export const CreateExam = ({
     (ans) => ans
   );
 
-  const exmRelaData = JSON.parse(getFromLocalStorage("ExamDetails"))
+  const exmRelaData = JSON.parse(getFromLocalStorage("ExamDetails"));
 
   const [postExm, setPostExm] = useState(false);
-  const [sub, setSub] = useState(exmDetails?.examName || exmRelaData?.name || "");
-  const [note, setNote] = useState(exmDetails?.notes || exmRelaData?.notes[0] || "");
+  const [sub, setSub] = useState(
+    exmDetails?.examName || exmRelaData?.name || ""
+  );
+  const [note, setNote] = useState(
+    exmDetails?.notes || exmRelaData?.notes[0] || ""
+  );
   const [formData, setFormData] = useState(data);
   const dispatch = useDispatch();
   const navigate = useNavigate();

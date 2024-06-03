@@ -5,7 +5,8 @@ export const valCreateExm = (QusData, dispatch, allErrors, name, value) => {
     let isValid = true;
 
     if (name) {
-        if (!value) {
+
+        if (!(value?.trim())) {
             dispatch(addToAllErr({ [name]: " This field required." }));
             isValid = false;
         } else {

@@ -5,6 +5,7 @@ import Collapse from '@mui/material/Collapse';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeApiMsg } from '../redux/slices/apiSlice';
 import { ternary } from '../utils/javaScript';
+import { API_REQ_FAIL_CODE, API_REQ_SUCCESS_CODE } from '../constants/userModule/apiConstants';
 
 export const Message = () => {
 
@@ -13,8 +14,8 @@ export const Message = () => {
     const apiStatusCode = useSelector((state) => state?.api?.apiResponse?.statusCode);
 
     const setSeverity = (code) => {
-        if (code === 200) return "success";
-        if (code === 500) return "error";
+        if (code === API_REQ_SUCCESS_CODE) return "success";
+        if (code === API_REQ_FAIL_CODE) return "error";
         else return "info";
     };
 

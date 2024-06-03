@@ -25,5 +25,6 @@ export const POST = "post";
 export const DELETE = "delete";
 export const PUT = "put";
 
+// ---------------------------------------------------------For routing
 export const STUDENT_DETAILS_API = "/dashboard/Teacher/StudentDetails?id=";
 export const VIEW_EXAM_DETAILS_API = "/dashboard/Teacher/examDetail?id=";

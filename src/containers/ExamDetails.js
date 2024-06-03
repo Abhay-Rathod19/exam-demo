@@ -14,7 +14,6 @@ import { editPutExam } from "../helpers/teacherModule/teacherActions";
 export const ExamDetails = () => {
   const [idParam] = useSearchParams();
   const exmId = idParam.get("id");
-  const loading = useSelector((state) => state.api?.loading);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,6 @@ export const ExamDetails = () => {
   }, []);
 
   const viewExamQus = useSelector((state) => state?.teacher?.viewExamQus);
-  console.log("data you got is : ", viewExamQus);
 
   return (
     <Box sx={{ mx: "10px" }}>

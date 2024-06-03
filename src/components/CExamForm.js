@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Stack, colors } from "@mui/material";
+import { Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ExmLabel } from "../shared/ExmLabel";
 import { ExmInputField } from "../shared/ExmInputField";
@@ -20,8 +20,8 @@ export const CExamForm = ({
 }) => {
   const dispatch = useDispatch();
   const allErrors = useSelector((state) => state?.teacher?.allErrors);
-  const entAns = useSelector((state) => state?.student?.exmAnswer);
   const [currQus, setCurrQus] = useState(0);
+
   const totalQus = ternary(
     examActype === "Submit Exam",
     formData.length - 1,
@@ -37,6 +37,12 @@ export const CExamForm = ({
     const { name, value } = e.target;
     valCreateExm("", dispatch, "", "question", value);
     const updatedData = [...formData];
+    const allQues = updatedData?.map((ele) => ele.question);
+    for (let qus of allQues) {
+      if (qus === value?.trim()) {
+        dispatch(addToAllErr({ ["question"]: " This question is repeated." }));
+      }
+    }
     updatedData[index] = {
       ...updatedData[index],
       question: value,
@@ -48,16 +54,24 @@ export const CExamForm = ({
     const { value, checked } = e.target;
     valCreateExm("", dispatch, "", `opt-${optionIndex}`, value);
     const updatedData = structuredClone(formData);
-    const optData = updatedData[questionIndex].options;
     if (!radio) {
-      if (optData.includes(value)) {
-        dispatch(
-          addToAllErr({ [`opt-${optionIndex}`]: "This is repeated value" })
-        );
-      }
+      const evrOpt = updatedData[questionIndex].options;
+      evrOpt.forEach((opt, index) => {
+        if (value?.trim() !== "" && opt === value) {
+          dispatch(
+            addToAllErr({
+              [`opt-${index}`]: "This is repeated value",
+              [`opt-${optionIndex}`]: "This is repeated value",
+            })
+          );
+        } else {
+          dispatch(
+            addToAllErr({ [`opt-${index}`]: "", [`opt-${optionIndex}`]: "" })
+          );
+        }
+      });
     }
     updatedData[questionIndex].options[optionIndex] = value;
-    // updatedData[questionIndex].answer = value;
     updatedData[questionIndex].answer = checked ? value : "";
     if (examActype === "Submit Exam") {
       const answer = { question: qusID, answer: value };
@@ -72,7 +86,7 @@ export const CExamForm = ({
   const handleNextQus = (e, qusNum) => {
     if (
       valCreateExm(QusData, dispatch, allErrors) &&
-      objectValues(allErrors).filter((ele) => ele).length === 0
+      objectValues(allErrors)?.filter((ele) => ele)?.length === 0
     ) {
       const newField = {
         options: ["", "", "", ""],
@@ -82,7 +96,11 @@ export const CExamForm = ({
       if (qusNum + 1 === formData.length && currQus < 14) {
         setFormData([...formData, newField]);
       }
-      setCurrQus((q) => q + 1);
+      if (currQus === totalQus) {
+        setPostExm(true);
+      } else {
+        setCurrQus((q) => q + 1);
+      }
     }
   };
 
@@ -91,8 +109,8 @@ export const CExamForm = ({
       {QusData?.map((data, ind) => {
         return (
           <Fragment key={`qus-${ind}`}>
-            <Stack direction="row" spacing={2}>
-              <ExmLabel className="mt-1">Question {currQus + 1} :</ExmLabel>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <ExmLabel>Question {currQus + 1} :</ExmLabel>
               <ExmInputField
                 id="exm-input-fields"
                 name={`qus-${currQus}`}
@@ -110,13 +128,14 @@ export const CExamForm = ({
                 {ternary(allErrors["answer"], allErrors["answer"], "")}
               </ExmTypography>
             </Stack>
-            {data.options.map((opt, optIndex) => {
+            {data?.options?.map((opt, optIndex) => {
               return (
                 <Stack
                   direction="row"
                   spacing={2}
                   style={{ marginLeft: "116px", marginTop: "15px" }}
                   key={`opt-${optIndex}`}
+                  alignItems="center"
                 >
                   {examActype === "Submit Exam" ? (
                     <ExmSRadio
@@ -150,7 +169,6 @@ export const CExamForm = ({
                     id="exm-input-fields"
                     value={opt || ""}
                     onChange={(e) => changeOption(e, currQus, optIndex)}
-                    // readOnly={ternary(examActype === "Submit Exam", true, false)}
                     disabled={ternary(
                       examActype === "Submit Exam",
                       true,
@@ -177,20 +195,20 @@ export const CExamForm = ({
                 onClick={() => {
                   dispatch(removeAllErr());
                   setPostExm(false);
-                  setCurrQus((n) => n - 1);
+                  if (
+                    valCreateExm(QusData, dispatch, allErrors) &&
+                    objectValues(allErrors)?.filter((ele) => ele)?.length === 0
+                  ) {
+                    setCurrQus((n) => n - 1);
+                  }
                 }}
                 sx={{ width: 160 }}
                 disabled={ternary(currQus === 0, true, false)}
               >
                 Back
               </ExmButton>
-              {/* setPostExm */}
               <ExmButton
-                onClick={ternary(
-                  currQus === totalQus,
-                  () => setPostExm(true),
-                  (e) => handleNextQus(e, currQus)
-                )}
+                onClick={(e) => handleNextQus(e, currQus)}
                 sx={{ width: 160 }}
                 disabled={ternary(currQus === 15, true, false)}
               >

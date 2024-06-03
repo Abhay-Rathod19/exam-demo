@@ -8,7 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
 import { ExmButton } from '../shared/ExmButton';
-import { getFromLocalStorage } from '../utils/javaScript';
+import { getFromLocalStorage, rmvFromLclStorage } from '../utils/javaScript';
 
 export const Navbar = () => {
 
@@ -16,7 +16,7 @@ export const Navbar = () => {
     const userName = JSON.parse(getFromLocalStorage("LogInUser"))?.name;
 
     const onUserLogout = () => {
-        localStorage.removeItem('LogInUser');
+        rmvFromLclStorage('LogInUser');
         navigate('/');
     }
 
