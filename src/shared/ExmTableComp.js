@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Pagination } from "@mui/material";
 import { Box } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { ExmButton } from "./ExmButton";
-import { objectKeys, ternary } from "../utils/javaScript";
+import { objectKeys, setToLocalStorage, ternary } from "../utils/javaScript";
 import { ExmTypography } from "./ExmTypography";
 import { addExmNameData } from "../redux/slices/teacherSlice";
-import { useDispatch } from "react-redux";
+import { removeExmPaper, rmvNoticeMsg } from "../redux/slices/studentSlice";
 
 
 export const ExmTableComponent = ({
@@ -20,7 +21,13 @@ export const ExmTableComponent = ({
   const dispatch = useDispatch();
 
   const putExmDetailsRdx = (details) => {
-    dispatch(addExmNameData(details));
+    if (details.subjectName && details.notes) {
+      dispatch(rmvNoticeMsg());
+      dispatch(removeExmPaper());
+      const exmDetails = { name: details.subjectName, notes: details.notes };
+      setToLocalStorage("ExamDetails", JSON.stringify(exmDetails));
+      dispatch(addExmNameData(details));
+    }
   }
 
   if (objectArray[0]) {

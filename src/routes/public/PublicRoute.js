@@ -6,7 +6,7 @@ export const PublicRoute = ({ children }) => {
     const lcStrRole = authenticateUser();
 
     if (lcStrRole) {
-        return <Navigate to='/dashboard' />
+        return <Navigate to={`/dashboard/${lcStrRole}`} />
     }
 
     return children;

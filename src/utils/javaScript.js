@@ -17,3 +17,7 @@ export const setToLocalStorage = (key, dataValue) => {
 export const getFromLocalStorage = (key) => {
     return localStorage.getItem(key)
 }
+
+export const rmvFromLclStorage = (key) => {
+    return localStorage.removeItem(key);
+}
