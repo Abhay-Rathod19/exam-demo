@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Pagination } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Pagination, Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { ExmButton } from "./ExmButton";
-import { objectKeys, setToLocalStorage, ternary } from "../utils/javaScript";
+import { objectKeys, ternary } from "../utils/javaScript";
 import { ExmTypography } from "./ExmTypography";
-import { addExmNameData, removeAllQues } from "../redux/slices/teacherSlice";
-import { removeExmPaper, rmvNoticeMsg } from "../redux/slices/studentSlice";
-
+import { putExmDetailsRdx } from "../helpers/studentModule/studentActions";
+import { ExmInputField } from "./ExmInputField";
+import { ExmLabel } from "./ExmLabel";
+import { deleteExam } from "../helpers/teacherModule/teacherActions";
 
 export const ExmTableComponent = ({
   objectArray,
@@ -16,20 +17,13 @@ export const ExmTableComponent = ({
   showNotes = false,
   btnLabel = "View Details",
   urlPath,
+  deleteBtn,
 }) => {
   const [currPage, setCurrPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const putExmDetailsRdx = (details) => {
-    if (details.subjectName && details.notes) {
-      dispatch(rmvNoticeMsg());
-      dispatch(removeExmPaper());
-      dispatch(removeAllQues());
-      const exmDetails = { name: details.subjectName, notes: details.notes };
-      setToLocalStorage("ExamDetails", JSON.stringify(exmDetails));
-      dispatch(addExmNameData(details));
-    }
-  }
 
   if (objectArray[0]) {
     const column = objectKeys(objectArray[0]);
@@ -41,8 +35,29 @@ export const ExmTableComponent = ({
     const dataLimit = 8;
     const lastInd = currPage * dataLimit;
     const startInd = lastInd - dataLimit;
-    const totalPage = Math.ceil(objectArray.length / dataLimit);
-    const tableData = objectArray?.slice(startInd, lastInd);
+    const totalPage = Math.ceil(objectArray?.length / dataLimit);
+    const tableData = objectArray
+      ?.filter((value) => {
+        for (let field of column) {
+          if (value[field]) {
+            if (
+              value[field]
+                ?.toString()
+                ?.toLowerCase()
+                ?.includes(search?.trim()?.toLowerCase())
+            ) {
+              return value;
+            }
+          }
+        }
+        return false;
+      })?.slice(startInd, lastInd);
+
+    const removeElement = (id) => {
+      const index = tableData?.findIndex((element) => element?._id === id);
+      tableData?.splice(index, 1);
+      console.log(`Data are : `, tableData);
+    }
 
     return (
       <Box
@@ -52,6 +67,13 @@ export const ExmTableComponent = ({
           alignItems: "center",
         }}
       >
+        <Stack direction="row" alignItems="baseline" spacing={3}>
+          <ExmLabel>Search for data here :</ExmLabel>
+          <ExmInputField
+            value={search || ""}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </Stack>
         <table className="table-edit my-3">
           <thead>
             <tr>
@@ -102,10 +124,28 @@ export const ExmTableComponent = ({
                     {btnRequire ? (
                       <td>
                         <Link to={`${urlPath}${data._id}`}>
-                          <ExmButton sx={{ height: "25" }} onClick={() => putExmDetailsRdx(data)}>
+                          <ExmButton
+                            sx={{ height: "25" }}
+                            onClick={() => putExmDetailsRdx(data, dispatch)}
+                          >
                             {btnLabel}
                           </ExmButton>
                         </Link>
+
+                        {deleteBtn ? (
+                          <ExmButton
+                            sx={{ height: "25", m: "0 10px" }}
+                            onClick={() => {
+                              // deleteExam(data._id, navigate);
+                              removeElement(data._id);
+                            }
+                            }
+                          >
+                            {`Delete`}
+                          </ExmButton>
+                        ) : (
+                          ""
+                        )}
                       </td>
                     ) : (
                       ""
@@ -116,6 +156,15 @@ export const ExmTableComponent = ({
             })}
           </tbody>
         </table>
+        {/* {ternary(
+          tableData?.length >= dataLimit,
+          <Pagination
+            count={totalPage}
+            onChange={(e, value) => setCurrPage(value)}
+            color="primary"
+          />,
+          ""
+        )} */}
         {ternary(
           totalPage > 1,
           <Pagination

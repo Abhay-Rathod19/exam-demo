@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ExmTypography } from "../shared/ExmTypography";
 import { getStudentProfile } from "../helpers/studentModule/studentActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
@@ -10,9 +10,10 @@ import { ExmButton } from "../shared/ExmButton";
 export const StudentProfile = () => {
   const studentDetails = useSelector((state) => state?.student?.stdProfile);
   const loading = useSelector((state) => state?.api?.loading);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getStudentProfile();
+    getStudentProfile(navigate);
   }, []);
   return (
     <Box>

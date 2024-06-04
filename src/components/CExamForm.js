@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { ExmLabel } from "../shared/ExmLabel";
+import { findRepeated } from "../utils/javaScript";
 import { ExmInputField } from "../shared/ExmInputField";
 import { ternary } from "../utils/javaScript";
 import { ExmButton } from "../shared/ExmButton";
@@ -35,7 +36,11 @@ export const CExamForm = ({
 
   const changeQus = (e, index) => {
     const { name, value } = e.target;
-    valCreateExm("", dispatch, "", "question", value);
+    if (!(value?.trim())) {
+      dispatch(addToAllErr({ ["question"]: " This field is required" }));
+    } else {
+      dispatch(addToAllErr({ ["question"]: "" }));
+    }
     const updatedData = [...formData];
     const allQues = updatedData?.map((ele) => ele.question);
     for (let qus of allQues) {
@@ -52,27 +57,33 @@ export const CExamForm = ({
 
   const changeOption = (e, questionIndex, optionIndex, radio, qusID) => {
     const { value, checked } = e.target;
-    valCreateExm("", dispatch, "", `opt-${optionIndex}`, value);
     const updatedData = structuredClone(formData);
+    updatedData[questionIndex].options[optionIndex] = value?.trim();
+    // updatedData[questionIndex].answer = checked ? value : "";
+    updatedData[questionIndex].answer = value;
+
     if (!radio) {
       const evrOpt = updatedData[questionIndex].options;
-      evrOpt.forEach((opt, index) => {
-        if (value?.trim() !== "" && opt === value) {
+      const repOpts = findRepeated(evrOpt);
+      [...Array(4).keys()].forEach((idx) => {
+        dispatch(
+          addToAllErr({
+            [`opt-${idx}`]: "",
+          })
+        );
+      })
+      if (repOpts?.length) {
+        repOpts?.forEach((ele) => {
           dispatch(
             addToAllErr({
-              [`opt-${index}`]: "This is repeated value",
-              [`opt-${optionIndex}`]: "This is repeated value",
+              [`opt-${ele}`]: "This is repeated value",
             })
           );
-        } else {
-          dispatch(
-            addToAllErr({ [`opt-${index}`]: "", [`opt-${optionIndex}`]: "" })
-          );
-        }
-      });
+        })
+      }
     }
-    updatedData[questionIndex].options[optionIndex] = value;
-    updatedData[questionIndex].answer = checked ? value : "";
+    valCreateExm("", dispatch, "", `opt-${optionIndex}`, value);
+
     if (examActype === "Submit Exam") {
       const answer = { question: qusID, answer: value };
       dispatch(setExmAnswer({ index: questionIndex, answer: answer }));
@@ -175,6 +186,7 @@ export const CExamForm = ({
                       false
                     )}
                   />
+
                   <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
                     {ternary(
                       allErrors[`opt-${optIndex}`],

@@ -19,6 +19,7 @@ export const UPDATE_STD_PROFILE = "/student/studentProfile";
 
 export const API_REQ_SUCCESS_CODE = 200;
 export const API_REQ_FAIL_CODE = 500;
+export const JWT_FAIL_CODE = 401;
 
 export const GET = "get";
 export const POST = "post";

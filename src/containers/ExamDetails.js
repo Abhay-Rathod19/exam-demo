@@ -17,7 +17,7 @@ export const ExamDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getExamDetails(`${GET_EXAM_DETAILS}${exmId}`);
+    getExamDetails(`${GET_EXAM_DETAILS}${exmId}`, navigate);
   }, []);
 
   const viewExamQus = useSelector((state) => state?.teacher?.viewExamQus);

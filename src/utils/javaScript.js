@@ -21,3 +21,21 @@ export const getFromLocalStorage = (key) => {
 export const rmvFromLclStorage = (key) => {
     return localStorage.removeItem(key);
 }
+
+export const findRepeated = (arr) => {
+    const repeated = {};
+    arr?.forEach((ele, index) => {
+        if (ele) {
+            if (arr?.indexOf(ele) !== arr?.lastIndexOf(ele)) {
+                if (!repeated[ele]) {
+                    repeated[ele] = [index];
+                } else {
+                    repeated[ele]?.push(index);
+                }
+            }
+        }
+    });
+    const values = objectValues(repeated)?.flat(Infinity);
+    return values;
+};
+

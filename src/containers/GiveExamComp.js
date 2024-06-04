@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { CreateExam } from "../components/CreateExam";
 import { getExamPaper } from "../helpers/studentModule/studentActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
@@ -10,9 +10,10 @@ import { ExmTypography } from "../shared/ExmTypography";
 export const GiveExamComp = () => {
   const [serchId] = useSearchParams();
   const examId = serchId.get("id");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getExamPaper(examId);
+    getExamPaper(examId, navigate);
   }, []);
 
   const examPaper = useSelector((state) => state?.student?.examPaper);

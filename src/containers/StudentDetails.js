@@ -42,11 +42,14 @@ export const StudentDetails = () => {
                             <ExmTypography variant="subtitle1" sx={{ display: "flex" }}>
                                 Id : {data?._id}
                             </ExmTypography>
+
                             {ternary(
                                 data?.Result?.length > 0,
                                 <ExmTableComponent
                                     btnRequire={false}
-                                    objectArray={data?.Result}
+                                    objectArray={data?.Result?.map(({ __v, ...rest }) => {
+                                        return rest
+                                    })}
                                     key={`data-${index}`}
                                 />,
                                 ""

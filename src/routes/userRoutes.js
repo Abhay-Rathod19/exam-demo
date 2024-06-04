@@ -10,7 +10,7 @@ import { VerifiedStd } from "../presentation/VerifiedStd";
 import { PrivateRoute } from "./private/PrivateRoute";
 import { PublicRoute } from "./public/PublicRoute";
 import { ExmCrtMain } from "../containers/ExmCrtMain";
-import { ViewExam } from "../containers/ViewExam";
+import { ViewExam } from "../containers/ViewAllExam";
 import { ExamDetails } from "../containers/ExamDetails";
 import {
   userFgtPsProps,

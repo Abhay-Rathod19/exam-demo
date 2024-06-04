@@ -12,6 +12,7 @@ import {
   GET_ALL_EXAMS,
   GET_STUDENT_PROFILE,
   API_REQ_FAIL_CODE,
+  JWT_FAIL_CODE,
 } from "../../constants/userModule/apiConstants";
 import {
   setExamPaper,
@@ -19,9 +20,12 @@ import {
   setStdProfile,
   setNoticeMsg
 } from "../../redux/slices/studentSlice";
+import { rmvNoticeMsg, removeExmPaper } from "../../redux/slices/studentSlice";
+import { removeAllQues, addExmNameData } from "../../redux/slices/teacherSlice";
+import { jwtFailRedirect } from "../authentication";
 
 
-export const getStudentProfile = async () => {
+export const getStudentProfile = async (navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: GET_STUDENT_PROFILE,
@@ -30,10 +34,12 @@ export const getStudentProfile = async () => {
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(setStdProfile(request?.payload?.data));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
-export const getAllExams = async () => {
+export const getAllExams = async (navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: GET_ALL_EXAMS,
@@ -42,10 +48,12 @@ export const getAllExams = async () => {
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(setAllExams(request?.payload?.data));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
-export const getExamPaper = async (exmId) => {
+export const getExamPaper = async (exmId, navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: `${GET_EXAM_PAPER}${exmId}`,
@@ -56,6 +64,8 @@ export const getExamPaper = async (exmId) => {
     exmStore.dispatch(setExamPaper(request?.payload?.data));
   } else if (request?.payload?.statusCode === API_REQ_FAIL_CODE) {
     exmStore.dispatch(setNoticeMsg(request?.payload?.message));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
@@ -70,6 +80,8 @@ export const submitExamPaper = async (exmId, answer, navigate) => {
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     console.log("Exam submited successfully");
     navigate("/dashboard/student/allExam");
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
@@ -81,10 +93,24 @@ export const changeStdName = async (formData, navigate,) => {
       data: { name: formData?.name }
     })
   );
+  console.log(`watching response : `, request.payload);
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     const useData = JSON.parse(getFromLocalStorage("LogInUser"));
     const updUserData = { ...useData, name: formData?.name };
     setToLocalStorage("LogInUser", JSON.stringify(updUserData));
     navigate("/dashboard/student/myProfile");
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 }
+
+export const putExmDetailsRdx = (details, dispatch) => {
+  if (details.subjectName && details.notes) {
+    dispatch(rmvNoticeMsg());
+    dispatch(removeExmPaper());
+    dispatch(removeAllQues());
+    const exmDetails = { examName: details.subjectName, notes: details.notes[0] };
+    setToLocalStorage("ExamDetails", JSON.stringify(exmDetails));
+    dispatch(addExmNameData(details));
+  }
+};

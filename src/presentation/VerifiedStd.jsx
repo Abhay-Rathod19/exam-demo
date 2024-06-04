@@ -6,12 +6,14 @@ import { ExmTableComponent } from "../shared/ExmTableComp";
 import { ExmTypography } from "../shared/ExmTypography";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { STUDENT_DETAILS_API } from "../constants/userModule/apiConstants";
+import { useNavigate } from "react-router";
 
 export const VerifiedStd = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.api.loading);
   useEffect(() => {
-    getVerifiedStdData();
+    getVerifiedStdData(navigate);
   }, [dispatch]);
 
   const verifiedStudentData = useSelector(
@@ -20,7 +22,7 @@ export const VerifiedStd = () => {
 
   return (
     <Box sx={{ textAlign: "center" }}>
-      <ExmTypography>Verified Students Data</ExmTypography>
+      <ExmTypography sx={{ m: "10px" }}>Verified Students Data</ExmTypography>
 
       {loading ? (
         <ExmSpinnerCom />

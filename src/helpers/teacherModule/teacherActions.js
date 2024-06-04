@@ -1,31 +1,28 @@
 import { exmStore } from "../../redux/store/store";
 import { fetchApiData } from "../../redux/slices/apiSlice";
 import {
-  API_REQ_SUCCESS_CODE,
-  GET_ALL_STD_DATA,
-  GET_VERIFIED_STD_DATA,
-} from "../../constants/userModule/apiConstants";
-import {
   addAllExams,
-  removeAllQues,
   verifiedStdData,
 } from "../../redux/slices/teacherSlice";
 import { allStdData } from "../../redux/slices/teacherSlice";
 import { addToViewExamQus } from "../../redux/slices/teacherSlice";
+import { jwtFailRedirect } from "../authentication";
 import {
   VIEW_EXAM_API,
   CREATE_EXAM_API,
   DELETE_EXAM_API,
   EDIT_EXAM_API,
-} from "../../constants/userModule/apiConstants";
-import {
   GET,
   POST,
   DELETE,
   PUT,
+  JWT_FAIL_CODE,
+  API_REQ_SUCCESS_CODE,
+  GET_ALL_STD_DATA,
+  GET_VERIFIED_STD_DATA,
 } from "../../constants/userModule/apiConstants";
 
-export const viewAllExam = async () => {
+export const viewAllExam = async (navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: VIEW_EXAM_API,
@@ -34,28 +31,35 @@ export const viewAllExam = async () => {
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(addAllExams(request?.payload?.data));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
-export const getAllStdData = async () => {
+export const getAllStdData = async (navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({ url: GET_ALL_STD_DATA, method: GET })
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(allStdData(request?.payload?.data));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
-export const getVerifiedStdData = async () => {
+export const getVerifiedStdData = async (navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({ url: GET_VERIFIED_STD_DATA, method: GET })
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(verifiedStdData(request?.payload?.data));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
+
 };
 
-export const getExamDetails = async (examIdUrl) => {
+export const getExamDetails = async (examIdUrl, navigate) => {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: examIdUrl,
@@ -64,6 +68,8 @@ export const getExamDetails = async (examIdUrl) => {
   );
   if (request.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     exmStore.dispatch(addToViewExamQus(request?.payload?.data?.questions));
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
@@ -78,6 +84,8 @@ export const createExam = async (examData, navigate) => {
 
   if (request?.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     navigate("/dashboard/Teacher/viewExam");
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };
 
@@ -110,5 +118,7 @@ export const editPutExam = async (examData, navigate, examId) => {
 
   if (request?.payload?.statusCode === API_REQ_SUCCESS_CODE) {
     navigate("/dashboard/Teacher/viewExam");
+  } else if (request.payload?.statusCode === JWT_FAIL_CODE) {
+    jwtFailRedirect(navigate);
   }
 };

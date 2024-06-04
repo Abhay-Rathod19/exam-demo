@@ -20,6 +20,6 @@ export const editProfileForm = [
     inputType: "button",
     btnValue: "Update Name",
     btnType: "Submit",
-    styles: { my: '25px' }
+    styles: { my: '5px', width: '400px' }
   }
 ];
