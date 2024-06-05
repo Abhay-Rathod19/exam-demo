@@ -1,13 +1,17 @@
-import { loginFormData } from "./loginFmData";
-import { signUpFormInput } from "./signupFmData";
-import { newPassData, resetPassData, forgotPassData } from "./forgotPsData";
+import { signUpFormInput, loginFormData } from "./signFmData";
+import { newPassData, resetPassData, forgotPassData } from "./pswdFormData";
 import { onUserLogIn, onUserSignUp, onUserForgetPass, onUserNewPass, onUserResetPass } from "../../helpers/userModules/userActions";
+import LoginImg from '../../assets/images/login.jpg';
+import SignUpImg from '../../assets/images/signup.jpg';
+import ResetPsImg from '../../assets/images/Reset.jpg';
+import ForgetPs from '../../assets/images/ForgetPs.png';
 
 export const userLoginProps = {
     actionType: "Log in",
     formData: loginFormData,
     formName: "LoginData",
     onFormSubmit: onUserLogIn,
+    formImage: LoginImg,
 };
 
 export const userSignUpProps = {
@@ -15,6 +19,7 @@ export const userSignUpProps = {
     formData: signUpFormInput,
     formName: "SignupData",
     onFormSubmit: onUserSignUp,
+    formImage: SignUpImg,
 };
 
 export const userFgtPsProps = {
@@ -22,6 +27,7 @@ export const userFgtPsProps = {
     formData: forgotPassData,
     formName: "ForgotPassData",
     onFormSubmit: onUserForgetPass,
+    formImage: ForgetPs,
 };
 
 export const userNewPsProps = {
@@ -29,6 +35,7 @@ export const userNewPsProps = {
     formData: newPassData,
     formName: "NewPassData",
     onFormSubmit: onUserNewPass,
+    formImage: LoginImg,
 };
 
 export const userRstPsProps = {
@@ -36,4 +43,5 @@ export const userRstPsProps = {
     formData: resetPassData,
     formName: "ResetPassData",
     onFormSubmit: onUserResetPass,
+    formImage: ResetPsImg,
 };

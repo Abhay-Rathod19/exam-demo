@@ -25,9 +25,9 @@ export const UserRoutes = () => {
     {
       path: "/",
       element: (
-        // <PublicRoute>
-        <UserAction {...userLoginProps} />
-        // </PublicRoute>
+        <PublicRoute>
+          <UserAction {...userLoginProps} />
+        </PublicRoute>
       ),
     },
     {

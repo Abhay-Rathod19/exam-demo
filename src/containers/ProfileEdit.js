@@ -10,10 +10,10 @@ export const ProfileEdit = () => {
     const userName = JSON.parse(getFromLocalStorage("LogInUser")).name;
 
     return (
-        <Box sx={{ m: "5px 0 0 20px" }}>
+        <Box sx={{ m: "5px 0 0 20px" }} className='profile-edit-container'>
             <ExmTypography variant="h4" sx={{ m: "5px 0 20px 0" }}>Edit profile</ExmTypography>
-            <Stack sx={{ m: "5px 0 10px 0" }}>
-                <ExmTypography variant="h6">Your curent name is : {userName}</ExmTypography>
+            <Stack sx={{ m: "5px 0 15px 0" }}>
+                <ExmTypography variant="h6">Your curent name is : <strong>{userName}</strong></ExmTypography>
             </Stack>
             <Stack>
                 <RenderFormFields fieldsObject={editProfileForm} formName="Update Profile" onFormSubmit={changeStdName} />

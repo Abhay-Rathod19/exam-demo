@@ -13,6 +13,7 @@ import { valCrtExmForm } from "../helpers/teacherModule/crtExmValidation";
 import { submitExamPaper } from "../helpers/studentModule/studentActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { createExmFields } from "../description/examForm.description";
+import { objectValues } from "../utils/javaScript";
 
 export const CreateExam = ({
   data,
@@ -20,7 +21,6 @@ export const CreateExam = ({
   exmId,
   examActype = "Create exam",
 }) => {
-
   const loading = useSelector((state) => state?.api?.loading);
   const allErrors = useSelector((state) => state?.teacher?.allErrors);
   const subAnswers = useSelector((state) => state?.student?.exmAnswer).filter(
@@ -31,8 +31,8 @@ export const CreateExam = ({
   const [postExm, setPostExm] = useState(false);
   const [formData, setFormData] = useState(data);
   const [crtFmData, setCrtFmData] = useState({
-    examName: exmRelaData?.['examName'] || '',
-    notes: exmRelaData?.['notes'] || '',
+    examName: exmRelaData?.["examName"] || "",
+    notes: exmRelaData?.["notes"] || "",
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,11 +43,14 @@ export const CreateExam = ({
       submitExamPaper(exmId, subAnswers, navigate);
     } else {
       const examDataObj = {
-        subjectName: crtFmData['examName'],
+        subjectName: crtFmData["examName"],
         questions: formData,
-        notes: [crtFmData['notes']],
+        notes: [crtFmData["notes"]],
       };
-      if (valCrtExmForm("", "", examDataObj, dispatch)) {
+      if (
+        valCrtExmForm("", "", examDataObj, dispatch) &&
+        objectValues(allErrors)?.filter((ele) => ele)?.length === 0
+      ) {
         rmvFromLclStorage("ExamDetails");
         exmAction(examDataObj, navigate, exmId);
       }
@@ -60,31 +63,32 @@ export const CreateExam = ({
     }
   }, []);
 
-
   return (
     <Stack sx={{ px: 2 }} spacing={3}>
-
-      {
-        createExmFields?.map((data, idx) => {
-          return (
-            <Stack key={`input-${idx}`} direction="row" spacing={2} alignItems="center">
-              <ExmLabel>{data?.label}</ExmLabel>
-              <ExmInputField
-                id="exm-input-fields"
-                value={crtFmData[data?.value] || ""}
-                onChange={(e) => {
-                  setCrtFmData({ ...crtFmData, [data?.value]: e.target.value });
-                  valCrtExmForm(data?.name, e.target.value, "", dispatch);//
-                }}
-                disabled={ternary(examActype === "Submit Exam", true, false)}
-              />
-              <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
-                {ternary(allErrors[data?.name], allErrors[data?.name], "")}
-              </ExmTypography>
-            </Stack>
-          )
-        })
-      }
+      {createExmFields?.map((data, idx) => {
+        return (
+          <Stack
+            key={`input-${idx}`}
+            direction="row"
+            spacing={2}
+            alignItems="center"
+          >
+            <ExmLabel>{data?.label}</ExmLabel>
+            <ExmInputField
+              id="exm-input-fields"
+              value={crtFmData[data?.value] || ""}
+              onChange={(e) => {
+                setCrtFmData({ ...crtFmData, [data?.value]: e.target.value });
+                valCrtExmForm(data?.name, e.target.value, "", dispatch); //
+              }}
+              disabled={ternary(examActype === "Submit Exam", true, false)}
+            />
+            <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
+              {ternary(allErrors[data?.name], allErrors[data?.name], "")}
+            </ExmTypography>
+          </Stack>
+        );
+      })}
 
       <hr style={{ width: "100%", height: "5px", borderRadius: "4px" }} />
       <CExamForm
@@ -100,11 +104,11 @@ export const CreateExam = ({
         onClick={createExamHere}
       >
         {examActype}
-        {loading ?
-          <ExmSpinnerCom
-            sx={{ m: "2px 10px", color: "white" }}
-          /> :
-          ``}
+        {loading ? (
+          <ExmSpinnerCom sx={{ m: "2px 10px", color: "white" }} />
+        ) : (
+          ``
+        )}
       </ExmButton>
     </Stack>
   );

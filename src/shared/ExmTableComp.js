@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Pagination, Stack } from "@mui/material";
 import { Box } from "@mui/material";
@@ -18,15 +18,19 @@ export const ExmTableComponent = ({
   btnLabel = "View Details",
   urlPath,
   deleteBtn,
+  removeData,
 }) => {
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const cloneArray = structuredClone(objectArray);
 
-  if (objectArray[0]) {
-    const column = objectKeys(objectArray[0]);
+  useEffect(() => { }, [cloneArray]);
+
+  if (cloneArray?.[0]) {
+    const column = objectKeys(cloneArray[0]);
     const headerArr = ternary(
       btnRequire,
       column?.map((item) => item?.toUpperCase()).concat("DETAILS"),
@@ -35,8 +39,8 @@ export const ExmTableComponent = ({
     const dataLimit = 8;
     const lastInd = currPage * dataLimit;
     const startInd = lastInd - dataLimit;
-    const totalPage = Math.ceil(objectArray?.length / dataLimit);
-    const tableData = objectArray
+    const totalPage = Math.ceil(cloneArray?.length / dataLimit);
+    const tableData = cloneArray
       ?.filter((value) => {
         for (let field of column) {
           if (value[field]) {
@@ -51,13 +55,8 @@ export const ExmTableComponent = ({
           }
         }
         return false;
-      })?.slice(startInd, lastInd);
-
-    const removeElement = (id) => {
-      const index = tableData?.findIndex((element) => element?._id === id);
-      tableData?.splice(index, 1);
-      console.log(`Data are : `, tableData);
-    }
+      })
+      ?.slice(startInd, lastInd);
 
     return (
       <Box
@@ -135,11 +134,7 @@ export const ExmTableComponent = ({
                         {deleteBtn ? (
                           <ExmButton
                             sx={{ height: "25", m: "0 10px" }}
-                            onClick={() => {
-                              // deleteExam(data._id, navigate);
-                              removeElement(data._id);
-                            }
-                            }
+                            onClick={() => removeData(objectArray, data._id)}
                           >
                             {`Delete`}
                           </ExmButton>

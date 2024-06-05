@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Stack } from "@mui/material";
 import { ExmLabel } from "../shared/ExmLabel";
 import { ExmInputField } from "../shared/ExmInputField";
-import { questions } from "../constants/teacherModule/createExamData";
 
 export const TestCreateExm = ({ queNum = 1 }) => {
   const data = [
@@ -46,10 +45,10 @@ export const TestCreateExm = ({ queNum = 1 }) => {
     setHomeData(updatedData);
   };
 
-  const handleRadioChange = (e, questionIndex, optionIndex) => {
+  const handleRadioChange = (e, questionIndex) => {
     const { value, checked } = e.target;
     const updatedData = structuredClone(homeData);
-    // updatedData[questionIndex].answer = value;
+    updatedData[questionIndex].answer = value;
     updatedData[questionIndex].answer = checked ? value : "";
     setHomeData(updatedData);
   };

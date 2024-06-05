@@ -13,10 +13,9 @@ import { ExmTypography } from "./ExmTypography";
 import { validateFormFields } from "../helpers/validateFormFields";
 import { objectValues } from "../utils/javaScript";
 import { addSubmitedData } from "../redux/slices/userSlice";
-
+import { ExmSpinnerCom } from "./ExmSpinnerCom";
 
 export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const apiLoading = useSelector((state) => state.api.loading);
@@ -24,13 +23,18 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
     const [formError, setFormError] = useState({});
 
     const handleFormInputChange = (e, fieldName) => {
-
         const { value } = e.target;
 
         setFormData({ ...formData, [fieldName]: value });
         setFormError({
             ...formError,
-            [fieldName]: validateFormFields(fieldName, value, formData, formError, setFormError),
+            [fieldName]: validateFormFields(
+                fieldName,
+                value,
+                formData,
+                formError,
+                setFormError
+            ),
         });
     };
 
@@ -55,143 +59,138 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleFormSubmit}>
-            {fieldsObject?.map((fields, index) => {
-                const {
-                    label,
-                    name,
-                    fieldType,
-                    inputType,
-                    listData,
-                    radioField,
-                    checkBoxFields,
-                    defaultSelValue,
-                    btnType,
-                    btnValue,
-                    styles,
-                    addActionData,
-                } = fields;
+        <Box className="form-main-container">
+            <form onSubmit={handleFormSubmit}>
+                {fieldsObject?.map((fields, index) => {
+                    const {
+                        label,
+                        name,
+                        fieldType,
+                        inputType,
+                        listData,
+                        radioField,
+                        checkBoxFields,
+                        defaultSelValue,
+                        btnType,
+                        btnValue,
+                        styles,
+                        addActionData,
+                    } = fields;
 
-                switch (inputType) {
-                    case "input":
-                        return (
-                            <React.Fragment key={`inp-${index}`}>
-                                <ExmLabel htmlFor={name}>{label}</ExmLabel>
-                                <ExmInputField
-                                    type={fieldType}
-                                    name={name}
-                                    value={formData[name] || ""}
-                                    id={name}
-                                    onChange={(e) => handleFormInputChange(e, name)}
-                                />
-                                <Box
-                                    component="p"
-                                    sx={{
-                                        height: 14,
-                                        color: "error.main",
-                                        display: "block",
-                                        marginTop: "-20px",
-                                    }}
-                                >
-                                    {formError[name] ? formError[name] : ""}
-                                </Box>
-                            </React.Fragment>
-                        );
+                    switch (inputType) {
+                        case "input":
+                            return (
+                                <React.Fragment key={`inp-${index}`}>
+                                    <ExmLabel htmlFor={name}>{label}</ExmLabel>
+                                    <ExmInputField
+                                        type={fieldType}
+                                        name={name}
+                                        value={formData[name] || ""}
+                                        id={name}
+                                        onChange={(e) => handleFormInputChange(e, name)}
+                                    />
+                                    <Box
+                                        component="p"
+                                        sx={{
+                                            height: 14,
+                                            color: "error.main",
+                                            display: "block",
+                                            marginTop: "-20px",
+                                        }}
+                                    >
+                                        {formError[name] ? formError[name] : ""}
+                                    </Box>
+                                </React.Fragment>
+                            );
 
-                    case "radio":
-                        return (
-                            <React.Fragment key={`radio-${index}`}>
-                                <ExmLabel className="radio-buttons">{label}</ExmLabel>
-                                <ExmRadioButton radioField={radioField} />
-                                <p className="error-msg">
-                                    {formError[name] ? formError[name] : ""}
-                                </p>
-                            </React.Fragment>
-                        );
+                        case "radio":
+                            return (
+                                <React.Fragment key={`radio-${index}`}>
+                                    <ExmLabel className="radio-buttons">{label}</ExmLabel>
+                                    <ExmRadioButton radioField={radioField} />
+                                    <p className="error-msg">
+                                        {formError[name] ? formError[name] : ""}
+                                    </p>
+                                </React.Fragment>
+                            );
 
-                    case "select":
-                        return (
-                            <React.Fragment key={`sel-${index}`}>
-                                <ExmLabel style={{ margin: "0px 0 10px 0" }}>{label}</ExmLabel>
-                                <ExmSelectList
-                                    listData={listData}
-                                    value={formData[name] || defaultSelValue}
-                                    onChange={(e) => handleFormInputChange(e, name)}
-                                />
-                                <Box
-                                    component="p"
-                                    sx={{
-                                        height: 14,
-                                        color: "error.main",
-                                        display: "block",
-                                        marginTop: "-20px",
-                                    }}
-                                >
-                                    {formError[name] ? formError[name] : ""}
-                                </Box>
-                            </React.Fragment>
-                        );
+                        case "select":
+                            return (
+                                <React.Fragment key={`sel-${index}`}>
+                                    <ExmLabel style={{ margin: "0px 0 10px 0" }}>{label}</ExmLabel>
+                                    <ExmSelectList
+                                        listData={listData}
+                                        value={formData[name] || defaultSelValue}
+                                        onChange={(e) => handleFormInputChange(e, name)}
+                                    />
+                                    <Box
+                                        component="p"
+                                        sx={{
+                                            height: 14,
+                                            color: "error.main",
+                                            display: "block",
+                                            marginTop: "-20px",
+                                        }}
+                                    >
+                                        {formError[name] ? formError[name] : ""}
+                                    </Box>
+                                </React.Fragment>
+                            );
 
-                    case "textarea":
-                        return (
-                            <React.Fragment key={`text-${index}`}>
-                                <ExmLabel style={{ margin: "20px 0 10px 0" }}>{label}</ExmLabel>
-                                <textarea
-                                    className="textarea"
-                                    value={formData?.aboutUser || ""}
-                                    aria-label="maximum height"
-                                    name={name}
-                                ></textarea>
-                            </React.Fragment>
-                        );
+                        case "textarea":
+                            return (
+                                <React.Fragment key={`text-${index}`}>
+                                    <ExmLabel style={{ margin: "20px 0 10px 0" }}>{label}</ExmLabel>
+                                    <textarea
+                                        className="textarea"
+                                        value={formData?.aboutUser || ""}
+                                        aria-label="maximum height"
+                                        name={name}
+                                    ></textarea>
+                                </React.Fragment>
+                            );
 
-                    case "checkbox":
-                        return (
-                            <React.Fragment key={`text-${index}`}>
-                                <ExmLabel>{label}</ExmLabel>
-                                <ExmCheckBox checkBoxFields={checkBoxFields} />
-                            </React.Fragment>
-                        );
+                        case "checkbox":
+                            return (
+                                <React.Fragment key={`text-${index}`}>
+                                    <ExmLabel>{label}</ExmLabel>
+                                    <ExmCheckBox checkBoxFields={checkBoxFields} />
+                                </React.Fragment>
+                            );
 
-                    case "button":
-                        return (
-                            <Stack key={`text-${index}`}>
+                        case "button":
+                            return (
+                                <Stack key={`text-${index}`}>
+                                    <ExmButton type={btnType} sx={{ ...styles, height: 45 }}>
+                                        {btnValue} {apiLoading ? <ExmSpinnerCom sx={{ color: "white", mx: 1, p: 1 }} /> : ""}
+                                    </ExmButton>
+                                </Stack>
+                            );
 
-                                <ExmButton type={btnType} sx={{ ...styles }}>
-                                    {
-                                        apiLoading ?
-                                            'wait'
-                                            : ""
-                                    }  {btnValue}
-                                </ExmButton>
-                            </Stack>
-                        );
-
-                    case "additionalAction":
-                        return (
-                            <Stack direction="row" spacing={28} key={`add-label-${index}`}>
-                                {
-                                    addActionData?.map((data, index) => {
+                        case "additionalAction":
+                            return (
+                                <Stack direction="row" spacing={28} key={`add-label-${index}`}>
+                                    {addActionData?.map((data, index) => {
                                         return (
-                                            <Link to={data?.onClickPath} key={`add-label-${index}`} className="text-decoration-none">
-                                                <ExmTypography
-                                                    variant="span"
-                                                    sx={{ ...styles }}
-                                                >
+                                            <Link
+                                                to={data?.onClickPath}
+                                                key={`add-label-${index}`}
+                                                className="text-decoration-none"
+                                            >
+                                                <ExmTypography variant="span" sx={{ ...styles }}>
                                                     {data?.label}
                                                 </ExmTypography>
                                             </Link>
-                                        )
-                                    })
-                                }
-                            </Stack>
-                        );
+                                        );
+                                    })}
+                                </Stack>
+                            );
 
-
-                    default:
-                        return "";
-                }
-            })}
-        </form>
+                        default:
+                            return "";
+                    }
+                })}
+            </form>
+        </Box>
     );
 };

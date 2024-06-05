@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
 .App {
   text-align: center;
 }
@@ -6,7 +8,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* overflow: hidden; */
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .main-container {
@@ -21,12 +25,24 @@
 
 .user-sign-login-container {
   width: 500px;
-  border-radius: 4px;
+  /* background-color: #e8a5e1; */
   display: flex;
   justify-content: center;
   padding: 20px 0 50px 0;
+}
+
+.user-action-main-container {
+  border-radius: 20px;
+  padding: 20px;
   box-shadow: 7px 7px 18px #c5c5c5, -7px -7px 18px #fbfbfb;
 }
+
+.user-action-img {
+  width: 600px;
+  border-radius: 20px;
+}
+
+/* .form-main-container {} */
 
 a {
   text-decoration: none;
@@ -71,4 +87,36 @@ a {
   border-radius: 4px;
   background-color: rgb(255, 255, 255);
   -webkit-text-fill-color: black;
+}
+
+.give-exam-qus {
+  border: 1px solid black;
+  border-radius: 4px;
+  width: 360px;
+  padding: 6px;
+}
+
+.student-profile-container {
+  width: 50%;
+  background-color: #f6f6f6;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.user-image {
+  width: 200px;
+  border-radius: 50%;
+  margin: 5px 80px;
+}
+
+.profile-edit-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
