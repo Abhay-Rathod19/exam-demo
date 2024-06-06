@@ -31,8 +31,17 @@ export const signUpFormInput = [
         inputType: "button",
         btnValue: "Sign up",
         btnType: "Submit",
-        styles: { my: '25px', background: "#a952a3" }
-    }
+        styles: { my: '25px' }
+    },
+    {
+        inputType: "additionalAction",
+        addActionData: [
+            { label: "Already have account? Login", onClickPath: "/" },
+        ],
+        styles: {
+            color: "#3f1a85", fontWeight: "500", cursor: "pointer", display: "grid"
+        },
+    },
 ];
 
 export const loginFormData = [
@@ -52,7 +61,7 @@ export const loginFormData = [
         inputType: "button",
         btnValue: "Log in",
         btnType: "Submit",
-        styles: { my: '15px', background: "#a952a3" }
+        styles: { my: '15px',width:'405px' }
     },
     {
         inputType: "additionalAction",

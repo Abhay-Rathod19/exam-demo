@@ -11,13 +11,13 @@ import { useNavigate } from "react-router";
 export const VerifiedStd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const loading = useSelector((state) => state.api.loading);
+  const loading = useSelector((state) => state?.api?.loading);
   useEffect(() => {
     getVerifiedStdData(navigate);
   }, [dispatch]);
 
   const verifiedStudentData = useSelector(
-    (state) => state?.teacher?.studentData.verifiedStd
+    (state) => state?.teacher?.studentData?.verifiedStd
   );
 
   return (

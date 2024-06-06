@@ -1,14 +1,21 @@
-import { useSelector } from "react-redux";
-import { authenticateUser } from "../../helpers/authentication";
 import { Navigate } from "react-router";
+import { authenticateUser } from "../../helpers/authentication";
 import { DashBoardComp } from "../../presentation/DashBoard";
 
+const userRouteRole = {
+  teacher: 1,
+  student: 1,
+};
+
 export const PrivateRoute = ({ routeRole }) => {
-  const userRole = useSelector((state) => state.exm.loggedUser.role);
   const lcStrRole = authenticateUser();
 
-  if (userRole === routeRole || lcStrRole === routeRole) {
-    return <DashBoardComp role={routeRole} />
+  if (!routeRole) {
+    return <Navigate to="/" />;
   }
+  if (userRouteRole[lcStrRole]) {
+    return <DashBoardComp role={lcStrRole} />;
+  }
+
   return <Navigate to="/" />;
 };

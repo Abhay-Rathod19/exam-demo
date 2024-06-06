@@ -24,10 +24,7 @@ userDataApi.interceptors.request.use(
 
 userDataApi.interceptors.response.use(
     (response) => {
-        console.log(`Response is : `, response);
-        // if (response?.data?.statusCode) {
-        //     alert(response?.data?.message);
-        // }
+        // console.log(`Response is : `, response);
         return response?.data;
     },
     (error) => {

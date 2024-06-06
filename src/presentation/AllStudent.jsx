@@ -9,38 +9,38 @@ import { getAllStdData } from "../helpers/teacherModule/teacherActions";
 import { useNavigate } from "react-router";
 
 export const AllStudent = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const loading = useSelector((state) => state.api.loading);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const loading = useSelector((state) => state?.api?.loading);
 
-    useEffect(() => {
-        getAllStdData(navigate);
-    }, [dispatch]);
+  useEffect(() => {
+    getAllStdData(navigate);
+  }, [dispatch]);
 
-    const allStudentData = useSelector(
-        (state) => state?.teacher?.studentData.allStudent
-    );
+  const allStudentData = useSelector(
+    (state) => state?.teacher?.studentData?.allStudent
+  );
 
-    return (
-        <Box sx={{ textAlign: "center" }}>
-            <ExmTypography sx={{ m: "10px" }}>All Students Data</ExmTypography>
-            {loading ? (
-                <ExmSpinnerCom />
-            ) : allStudentData ? (
-                <>
-                    <Box
-                        className="allstud-data-container"
-                        sx={{ display: "flex", justifyContent: "center" }}
-                    >
-                        <ExmTableComponent
-                            objectArray={allStudentData}
-                            urlPath={STUDENT_DETAILS_API}
-                        />
-                    </Box>
-                </>
-            ) : (
-                ""
-            )}
-        </Box>
-    );
+  return (
+    <Box sx={{ textAlign: "center" }}>
+      <ExmTypography sx={{ m: "10px" }}>All Students Data</ExmTypography>
+      {loading ? (
+        <ExmSpinnerCom />
+      ) : allStudentData ? (
+        <>
+          <Box
+            className="allstud-data-container"
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <ExmTableComponent
+              objectArray={allStudentData}
+              urlPath={STUDENT_DETAILS_API}
+            />
+          </Box>
+        </>
+      ) : (
+        ""
+      )}
+    </Box>
+  );
 };

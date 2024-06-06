@@ -12,6 +12,7 @@ import { PublicRoute } from "./public/PublicRoute";
 import { ExmCrtMain } from "../containers/ExmCrtMain";
 import { ViewExam } from "../containers/ViewAllExam";
 import { ExamDetails } from "../containers/ExamDetails";
+import { ProtectedRoute } from "./private/Protected";
 import {
   userFgtPsProps,
   userLoginProps,
@@ -55,12 +56,12 @@ export const UserRoutes = () => {
       ),
     },
     {
-      path: "/resetpassword",
-      element: <UserAction {...userRstPsProps} />,
-    },
-    {
       path: "/dashboard",
       children: [
+        {
+          index: true,
+          element: <PrivateRoute />,
+        },
         {
           path: "Teacher",
           element: <PrivateRoute routeRole="teacher" />,
@@ -113,11 +114,19 @@ export const UserRoutes = () => {
             },
           ],
         },
+        {
+          path: "resetpassword",
+          element: (
+            <ProtectedRoute>
+              <UserAction {...userRstPsProps} />
+            </ProtectedRoute>
+          )
+        },
       ],
     },
     {
       path: "*",
-      element: <p>No match found for this path...</p>,
+      element: <h4>No match found for this path...</h4>,
     },
   ]);
 

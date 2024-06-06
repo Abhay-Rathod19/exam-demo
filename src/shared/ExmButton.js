@@ -1,15 +1,7 @@
-import { Button, styled } from "@mui/material";
-
 import React from "react";
+import { Button } from "@mui/material";
 
 export const ExmButton = ({ children, ...props }) => {
-
-    // console.log(`Props background : `, props?.sx?.background)
-    // const colorDefault = props?.sx?.background || `transparent`;
-    // const CustomBtn = styled(Button)`&:hover{
-    //                background-color: (${colorDefault})
-    //             }`
-
     return (
         <Button
             variant="contained"

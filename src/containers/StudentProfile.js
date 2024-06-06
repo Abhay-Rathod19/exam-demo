@@ -32,9 +32,14 @@ export const StudentProfile = () => {
             <ExmTypography variant="para">Id : {studentDetails?._id}</ExmTypography>
             <ExmTypography variant="para">Email : {studentDetails?.email}</ExmTypography>
             <ExmTypography variant="para">Role : {studentDetails?.role}</ExmTypography>
-            <Link to="/dashboard/student/editProfile">
-              <ExmButton sx={{ m: "3px 0" }}>Change Name</ExmButton>
-            </Link>
+            <Stack direction='row' spacing={2}>
+              <Link to="/dashboard/student/editProfile">
+                <ExmButton sx={{ m: "3px 0" }}>Change Name</ExmButton>
+              </Link>
+              <Link to="/dashboard/resetpassword">
+                <ExmButton sx={{ m: "3px 0" }}>Reset Password</ExmButton>
+              </Link>
+            </Stack>
           </Stack>
         </Box>
       )}

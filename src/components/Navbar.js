@@ -1,7 +1,6 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
@@ -21,8 +20,7 @@ export const Navbar = () => {
     }
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
+        <Box sx={{ display: 'flex', mb: '30px' }}>
             <AppBar component="nav" sx={{ position: "static", height: 70 }}>
                 <Toolbar>
                     <IconButton
@@ -59,12 +57,6 @@ export const Navbar = () => {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <nav>
-
-            </nav>
-            <Box component="main" sx={{ p: 3 }}>
-                <Toolbar />
-            </Box>
         </Box>
     )
 };

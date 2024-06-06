@@ -1,3 +1,4 @@
+
 export const teachSideBarOpts = [
   {
     label: "All student data",
@@ -15,5 +16,11 @@ export const teachSideBarOpts = [
     label: "View exam",
     link: "/dashboard/Teacher/viewExam",
   },
+  {
+    label: "Reset password",
+    link: "/dashboard/resetpassword",
+  },
 ];
 
+export const SUBMIT_EXM_STD = "Submit Exam";
+export const CREATE_EXM_STD = "Create exam";

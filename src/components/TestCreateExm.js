@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Stack } from "@mui/material";
 import { ExmLabel } from "../shared/ExmLabel";
 import { ExmInputField } from "../shared/ExmInputField";
+import { areEqual } from "../utils/javaScript";
 
 export const TestCreateExm = ({ queNum = 1 }) => {
   const data = [
@@ -23,8 +24,6 @@ export const TestCreateExm = ({ queNum = 1 }) => {
   ];
 
   const [homeData, setHomeData] = useState(data);
-
-  console.log("data are : ", homeData);
 
   const changeQus = (e, index) => {
     const { name, value } = e.target;
@@ -72,7 +71,7 @@ export const TestCreateExm = ({ queNum = 1 }) => {
                     type="radio"
                     name={`radio-${ind}`}
                     value={opt || ""}
-                    checked={data?.answer ? opt === data?.answer : false}
+                    checked={data?.answer ? areEqual(opt, data?.answer) : false}
                     onChange={(e) => handleRadioChange(e, ind, optIndex)}
                   />
                   <ExmInputField

@@ -5,8 +5,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { ExmTypography } from "../shared/ExmTypography";
 import { getExamDetails } from "../helpers/teacherModule/teacherActions";
 import { GET_EXAM_DETAILS } from "../constants/userModule/apiConstants";
-import { ExmButton } from "../shared/ExmButton";
-import { deleteExam } from "../helpers/teacherModule/teacherActions";
+// import { ExmButton } from "../shared/ExmButton";
+// import { deleteExam } from "../helpers/teacherModule/teacherActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { CreateExam } from "../components/CreateExam";
 import { editPutExam } from "../helpers/teacherModule/teacherActions";
@@ -35,12 +35,12 @@ export const ExamDetails = () => {
             exmId={exmId}
             examActype="Post edit exam"
           />
-          <ExmButton
+          {/* <ExmButton
             sx={{ w: 1, my: 10 }}
             onClick={() => deleteExam(exmId, navigate)}
           >
             Delete this Exam
-          </ExmButton>
+          </ExmButton> */}
         </Stack>
       ) : (
         <ExmSpinnerCom />

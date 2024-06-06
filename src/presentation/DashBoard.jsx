@@ -4,14 +4,13 @@ import { Link } from "react-router-dom";
 import { ExmButton } from "../shared/ExmButton";
 import { ExmTypography } from "../shared/ExmTypography";
 import { teachSideBarOpts } from "../description/teacher.description";
-import { studSideBarOpts } from "../description/student.description";
+import { STUDENT, studSideBarOpts } from "../description/student.description";
 import { Navbar } from "../components/Navbar";
-import {ternary } from "../utils/javaScript";
-
+import { areEqual, ternary } from "../utils/javaScript";
 
 export const DashBoardComp = ({ role }) => {
   const sideBarList = ternary(
-    role === "student",
+    areEqual(role, STUDENT),
     studSideBarOpts,
     teachSideBarOpts
   );
@@ -21,7 +20,7 @@ export const DashBoardComp = ({ role }) => {
       sx={{ width: 1, display: "flex", height: "100%" }}
       className="dashboard-main-container"
     >
-      <Box className="dashboard-sidebar" sx={{ width: 1 / 5, borderRight: 2 }}>
+      <Box className="dashboard-sidebar" sx={{ width: 1 / 5 }}>
         <ExmTypography
           variant="h4"
           sx={{ textAlign: "left", p: "15px 0 15px 10px ", borderBottom: 2 }}
@@ -31,7 +30,7 @@ export const DashBoardComp = ({ role }) => {
 
         {sideBarList?.map((element, index) => {
           return (
-            <Link to={element.link} key={`btn-${index}`}>
+            <Link to={element?.link} key={`btn-${index}`}>
               <ExmButton
                 variant="text"
                 sx={{
@@ -45,7 +44,7 @@ export const DashBoardComp = ({ role }) => {
                   borderRadius: 0,
                 }}
               >
-                {element.label}
+                {element?.label}
               </ExmButton>
             </Link>
           );

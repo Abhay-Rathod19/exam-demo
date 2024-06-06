@@ -4,12 +4,11 @@ import { Pagination, Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { ExmButton } from "./ExmButton";
-import { objectKeys, ternary } from "../utils/javaScript";
+import { areEqual, objectKeys, ternary } from "../utils/javaScript";
 import { ExmTypography } from "./ExmTypography";
 import { putExmDetailsRdx } from "../helpers/studentModule/studentActions";
 import { ExmInputField } from "./ExmInputField";
 import { ExmLabel } from "./ExmLabel";
-import { deleteExam } from "../helpers/teacherModule/teacherActions";
 
 export const ExmTableComponent = ({
   objectArray,
@@ -27,7 +26,7 @@ export const ExmTableComponent = ({
 
   const cloneArray = structuredClone(objectArray);
 
-  useEffect(() => { }, [cloneArray]);
+  useEffect(() => {}, [cloneArray]);
 
   if (cloneArray?.[0]) {
     const column = objectKeys(cloneArray[0]);
@@ -96,21 +95,21 @@ export const ExmTableComponent = ({
                         <React.Fragment key={index}>
                           {showNotes ? (
                             <td>
-                              {typeof data[v] === "object"
+                              {areEqual(typeof data[v], "object")
                                 ? data[v]?.map((data, idx) => (
-                                  <ExmTypography
-                                    sx={{ fontSize: "16px" }}
-                                    key={`n-${idx}`}
-                                  >
-                                    {data}
-                                  </ExmTypography>
-                                ))
+                                    <ExmTypography
+                                      sx={{ fontSize: "16px" }}
+                                      key={`n-${idx}`}
+                                    >
+                                      {data}
+                                    </ExmTypography>
+                                  ))
                                 : data[v]}
                             </td>
                           ) : (
                             <td>
                               {ternary(
-                                typeof data[v] === "object",
+                                areEqual(typeof data[v], "object"),
                                 "Answers",
                                 data[v]
                               )}
@@ -133,7 +132,7 @@ export const ExmTableComponent = ({
 
                         {deleteBtn ? (
                           <ExmButton
-                            sx={{ height: "25", m: "0 10px" }}
+                            sx={{ height: "25", m: "5px" }}
                             onClick={() => removeData(objectArray, data._id)}
                           >
                             {`Delete`}

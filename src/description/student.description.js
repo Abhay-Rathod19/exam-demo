@@ -1,3 +1,5 @@
+export const STUDENT = "student";
+
 export const studSideBarOpts = [
   {
     label: "All Exam",
@@ -20,6 +22,6 @@ export const editProfileForm = [
     inputType: "button",
     btnValue: "Update Name",
     btnType: "Submit",
-    styles: { my: '5px', width: '400px' }
-  }
+    styles: { my: "5px", width: "400px" },
+  },
 ];

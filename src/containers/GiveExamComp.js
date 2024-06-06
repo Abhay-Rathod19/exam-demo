@@ -6,6 +6,7 @@ import { getExamPaper } from "../helpers/studentModule/studentActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { AlreadyExmGiven } from "../components/AlreadyExmGiven";
 import { ExmTypography } from "../shared/ExmTypography";
+import { SUBMIT_EXM_STD } from "../description/teacher.description";
 
 export const GiveExamComp = () => {
   const [serchId] = useSearchParams();
@@ -21,27 +22,25 @@ export const GiveExamComp = () => {
 
   return (
     <>
-      {
-        noticeMsg ? <AlreadyExmGiven /> : (
-          <>
-            <ExmTypography variant="h5" sx={{ m: "0 5px 10px 20px" }}>
-              Give exam :
-            </ExmTypography>
-            {
-              examPaper.length > 0 ? (
-                <CreateExam
-                  data={examPaper}
-                  exmId={examId}
-                  examActype="Submit Exam"
-                />
-              ) : (
-                <ExmSpinnerCom />
-              )
-            }
-          </>
+      {noticeMsg ? (
+        <AlreadyExmGiven />
+      ) : (
+        <>
+          <ExmTypography variant="h5" sx={{ m: "0 5px 10px 20px" }}>
+            Give exam :
+          </ExmTypography>
+          {examPaper.length > 0 ? (
+            <CreateExam
+              data={examPaper}
+              exmId={examId}
+              examActype={SUBMIT_EXM_STD}
+            />
+          ) : (
+            <ExmSpinnerCom />
+          )}
+        </>
+      )}
 
-        )
-      }
       {/* <ExmTypography variant="h5" sx={{ m: "0 5px 10px 20px" }}>
         Give exam :
       </ExmTypography> */}
@@ -59,7 +58,6 @@ export const GiveExamComp = () => {
       ) : (
         <ExmSpinnerCom />
       )} */}
-
     </>
   );
 };

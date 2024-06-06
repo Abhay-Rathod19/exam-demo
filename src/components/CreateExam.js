@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router";
-import { rmvFromLclStorage } from "../utils/javaScript";
+import { areEqual, rmvFromLclStorage } from "../utils/javaScript";
 import { ExmTypography } from "../shared/ExmTypography";
 import { ExmInputField } from "../shared/ExmInputField";
 import { ExmLabel } from "../shared/ExmLabel";
@@ -14,16 +14,19 @@ import { submitExamPaper } from "../helpers/studentModule/studentActions";
 import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
 import { createExmFields } from "../description/examForm.description";
 import { objectValues } from "../utils/javaScript";
+import { ExmQusField } from "../shared/ExmQusField";
+import { SUBMIT_EXM_STD } from "../description/teacher.description";
+import { CREATE_EXM_STD } from "../description/teacher.description";
 
 export const CreateExam = ({
   data,
   exmAction,
   exmId,
-  examActype = "Create exam",
+  examActype = CREATE_EXM_STD,
 }) => {
   const loading = useSelector((state) => state?.api?.loading);
   const allErrors = useSelector((state) => state?.teacher?.allErrors);
-  const subAnswers = useSelector((state) => state?.student?.exmAnswer).filter(
+  const subAnswers = useSelector((state) => state?.student?.exmAnswer)?.filter(
     (ans) => ans
   );
   const exmRelaData = JSON.parse(getFromLocalStorage("ExamDetails"));
@@ -38,7 +41,7 @@ export const CreateExam = ({
   const navigate = useNavigate();
 
   const createExamHere = () => {
-    if (examActype === "Submit Exam") {
+    if (areEqual(examActype, SUBMIT_EXM_STD)) {
       rmvFromLclStorage("ExamDetails");
       submitExamPaper(exmId, subAnswers, navigate);
     } else {
@@ -49,7 +52,7 @@ export const CreateExam = ({
       };
       if (
         valCrtExmForm("", "", examDataObj, dispatch) &&
-        objectValues(allErrors)?.filter((ele) => ele)?.length === 0
+        areEqual(objectValues(allErrors)?.filter((ele) => ele)?.length, 0)
       ) {
         rmvFromLclStorage("ExamDetails");
         exmAction(examDataObj, navigate, exmId);
@@ -58,7 +61,7 @@ export const CreateExam = ({
   };
 
   useEffect(() => {
-    if (examActype === "Create exam") {
+    if (areEqual(examActype, CREATE_EXM_STD)) {
       setCrtFmData({});
     }
   }, []);
@@ -71,18 +74,28 @@ export const CreateExam = ({
             key={`input-${idx}`}
             direction="row"
             spacing={2}
-            alignItems="center"
+            alignItems="baseline"
           >
             <ExmLabel>{data?.label}</ExmLabel>
-            <ExmInputField
-              id="exm-input-fields"
-              value={crtFmData[data?.value] || ""}
-              onChange={(e) => {
-                setCrtFmData({ ...crtFmData, [data?.value]: e.target.value });
-                valCrtExmForm(data?.name, e.target.value, "", dispatch); //
-              }}
-              disabled={ternary(examActype === "Submit Exam", true, false)}
-            />
+            {ternary(
+              areEqual(examActype, SUBMIT_EXM_STD),
+              <ExmQusField sx={{ borderBottom: "none" }}>
+                {crtFmData[data?.value]}
+              </ExmQusField>,
+              <ExmInputField
+                id="exm-input-fields"
+                value={crtFmData[data?.value] || ""}
+                onChange={(e) => {
+                  setCrtFmData({ ...crtFmData, [data?.value]: e.target.value });
+                  valCrtExmForm(data?.name, e.target.value, "", dispatch);
+                }}
+                disabled={ternary(
+                  areEqual(examActype, SUBMIT_EXM_STD),
+                  true,
+                  false
+                )}
+              />
+            )}
             <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
               {ternary(allErrors[data?.name], allErrors[data?.name], "")}
             </ExmTypography>
@@ -99,15 +112,15 @@ export const CreateExam = ({
       />
       <ExmButton
         disabled={ternary(postExm, false, true)}
-        sx={{ width: 402, m: "20px" }}
+        sx={{ width: 402, m: "20px", p: 0, height: "40px" }}
         style={{ marginLeft: "146px" }}
         onClick={createExamHere}
       >
         {examActype}
         {loading ? (
-          <ExmSpinnerCom sx={{ m: "2px 10px", color: "white" }} />
+          <ExmSpinnerCom sx={{ m: "0 10px", color: "white", p: 1 }} />
         ) : (
-          ``
+          ""
         )}
       </ExmButton>
     </Stack>
