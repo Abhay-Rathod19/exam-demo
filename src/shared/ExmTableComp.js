@@ -78,7 +78,9 @@ export const ExmTableComponent = ({
               {headerArr?.map((item, index) => {
                 return (
                   <React.Fragment key={index}>
-                    <th>{item}</th>
+                    <th>
+                      <strong>{item}</strong>
+                    </th>
                   </React.Fragment>
                 );
               })}
@@ -121,7 +123,7 @@ export const ExmTableComponent = ({
 
                     {btnRequire ? (
                       <td>
-                        <Link to={`${urlPath}${data._id}`}>
+                        <Link to={`${urlPath}${data._id}`} state={data}>
                           <ExmButton
                             sx={{ height: "25" }}
                             onClick={() => putExmDetailsRdx(data, dispatch)}

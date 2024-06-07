@@ -30,7 +30,6 @@ export const ViewExam = () => {
     if (window.confirm("Are sure you want to delete this exam ?")) {
       const newData = structuredClone(data);
       const index = newData?.findIndex((ele) => areEqual(ele?._id, id));
-
       newData?.splice(index, 1);
       setFilterData(newData);
       deleteExam(id, navigate);
@@ -39,7 +38,9 @@ export const ViewExam = () => {
 
   return (
     <Box className="view-exam-details" sx={{ textAlign: "center" }}>
-      <ExmTypography sx={{ m: "10px" }}>All Exams</ExmTypography>
+      <ExmTypography sx={{ m: "5px"}}>
+        All Exams
+      </ExmTypography>
       {loading ? (
         <ExmSpinnerCom />
       ) : (

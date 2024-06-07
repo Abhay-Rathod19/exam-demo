@@ -23,7 +23,7 @@ export const Message = () => {
     else return "info";
   };
 
-  setTimeout(() => dispatch(removeApiMsg()), 4000);
+  setTimeout(() => dispatch(removeApiMsg()), 1000);
 
   return (
     <Box sx={{ width: "500px" }} className="api-response-msg">

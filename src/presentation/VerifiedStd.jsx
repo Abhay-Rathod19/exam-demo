@@ -22,7 +22,9 @@ export const VerifiedStd = () => {
 
   return (
     <Box sx={{ textAlign: "center" }}>
-      <ExmTypography sx={{ m: "10px" }}>Verified Students Data</ExmTypography>
+      <ExmTypography sx={{ m: "20px", fontSize: "24px" }}>
+        Verified Students Data
+      </ExmTypography>
 
       {loading ? (
         <ExmSpinnerCom />

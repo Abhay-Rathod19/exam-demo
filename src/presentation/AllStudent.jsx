@@ -23,7 +23,9 @@ export const AllStudent = () => {
 
   return (
     <Box sx={{ textAlign: "center" }}>
-      <ExmTypography sx={{ m: "10px" }}>All Students Data</ExmTypography>
+      <ExmTypography sx={{ m: "20px", fontSize: "24px" }}>
+        All Students Data
+      </ExmTypography>
       {loading ? (
         <ExmSpinnerCom />
       ) : allStudentData ? (

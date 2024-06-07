@@ -1,6 +1,7 @@
 import { exmStore } from "../../redux/store/store";
 import { fetchApiData } from "../../redux/slices/apiSlice";
 import { API_REQ_SUCCESS_CODE } from "../../constants/userModule/apiConstants";
+import { setApiMsg } from "../../redux/slices/apiSlice";
 import {
   areEqual,
   getFromLocalStorage,
@@ -25,6 +26,7 @@ export const onUserSignUp = async (formData, navigate, setFormData) => {
 
   if (areEqual(request.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
     navigate("/", { replace: true });
+    exmStore.dispatch(setApiMsg(request.payload?.message));
     setFormData({});
   }
 };
@@ -47,6 +49,7 @@ export const onUserLogIn = async (formData, navigate, setFormData) => {
     const role = JSON.parse(getFromLocalStorage("LogInUser")).role;
     navigate(`/dashboard/${role}`, { replace: true });
     setFormData({});
+    exmStore.dispatch(setApiMsg(request.payload?.message));
     exmStore.dispatch(addToLogUser(request.payload.data));
   }
 };
@@ -64,6 +67,7 @@ export const onUserForgetPass = async (formData, navigate, setFormData) => {
   );
 
   if (areEqual(request.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
+    exmStore.dispatch(setApiMsg(request.payload?.message));
     // navigate("/signup", { replace: true });
     setFormData({});
   }
@@ -85,6 +89,7 @@ export const onUserNewPass = async (formData, navigate, setFormData) => {
   );
 
   if (areEqual(request.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
+    exmStore.dispatch(setApiMsg(request.payload?.message));
     navigate("/", { replace: true });
     setFormData({});
   }
@@ -105,6 +110,7 @@ export const onUserResetPass = async (formData, navigate, setFormData) => {
   );
 
   if (areEqual(request.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
+    exmStore.dispatch(setApiMsg(request.payload?.message));
     setFormData({});
     navigate("/");
   }

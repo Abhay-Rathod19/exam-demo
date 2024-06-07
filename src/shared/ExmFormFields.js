@@ -11,7 +11,7 @@ import { ExmInputField } from "./ExmInputField";
 import { ExmButton } from "./ExmButton";
 import { ExmTypography } from "./ExmTypography";
 import { validateFormFields } from "../helpers/validateFormFields";
-import { areEqual, objectValues } from "../utils/javaScript";
+import { areEqual, objectValues, ternary } from "../utils/javaScript";
 import { addSubmitedData } from "../redux/slices/userSlice";
 import { ExmSpinnerCom } from "./ExmSpinnerCom";
 
@@ -165,13 +165,13 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
             case "button":
               return (
                 <Stack key={`text-${index}`}>
-                  <ExmButton type={btnType} sx={{ ...styles, height: 45 }}>
-                    {btnValue}{" "}
-                    {apiLoading ? (
-                      <ExmSpinnerCom sx={{ color: "white", mx: 1, p: 1 }} />
-                    ) : (
-                      ""
-                    )}
+                  <ExmButton
+                    type={btnType}
+                    sx={{ ...styles, height: 45 }}
+                    disabled={ternary(apiLoading, true, false)}
+                  >
+                    {btnValue}
+                    {apiLoading ? <ExmSpinnerCom sx={{ mx: 1, p: 1 }} /> : ""}
                   </ExmButton>
                 </Stack>
               );

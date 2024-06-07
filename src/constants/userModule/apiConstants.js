@@ -1,4 +1,4 @@
-export const BASE_URL = "https://examination.onrender.com";
+export const BASE_URL = process.env.REACT_APP_EXAM_DEMO_BASEURL;
 
 // --------------------------------------------------------Teacher
 export const GET_ALL_STD_DATA = "/dashboard/Teachers";

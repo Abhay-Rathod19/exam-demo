@@ -7,6 +7,7 @@ import { teachSideBarOpts } from "../description/teacher.description";
 import { STUDENT, studSideBarOpts } from "../description/student.description";
 import { Navbar } from "../components/Navbar";
 import { areEqual, ternary } from "../utils/javaScript";
+import { Message } from "../containers/Message";
 
 export const DashBoardComp = ({ role }) => {
   const sideBarList = ternary(
@@ -20,10 +21,15 @@ export const DashBoardComp = ({ role }) => {
       sx={{ width: 1, display: "flex", height: "100%" }}
       className="dashboard-main-container"
     >
+      <Message />
       <Box className="dashboard-sidebar" sx={{ width: 1 / 5 }}>
         <ExmTypography
           variant="h4"
-          sx={{ textAlign: "left", p: "15px 0 15px 10px ", borderBottom: 2 }}
+          sx={{
+            textAlign: "left",
+            p: "14px 0 13px 10px",
+            borderBottom: 2,
+          }}
         >
           Dashboard
         </ExmTypography>
@@ -42,6 +48,7 @@ export const DashBoardComp = ({ role }) => {
                   fontSize: "15px",
                   borderBottom: 1,
                   borderRadius: 0,
+                  color: "black",
                 }}
               >
                 {element?.label}

@@ -144,6 +144,17 @@ export const CExamForm = ({
     }
   };
 
+  const handleBackClick = () => {
+    setPostExm(false);
+    setNextBtn(false);
+    if (
+      valCreateExm(QusData, dispatch, allErrors) &&
+      areEqual(objectValues(allErrors)?.filter((ele) => ele)?.length, 0)
+    ) {
+      setCurrQus((n) => n - 1);
+    }
+  };
+
   return (
     <>
       {QusData?.map((data, ind) => {
@@ -245,19 +256,7 @@ export const CExamForm = ({
               spacing={10}
             >
               <ExmButton
-                onClick={() => {
-                  setPostExm(false);
-                  setNextBtn(false);
-                  if (
-                    valCreateExm(QusData, dispatch, allErrors) &&
-                    areEqual(
-                      objectValues(allErrors)?.filter((ele) => ele)?.length,
-                      0
-                    )
-                  ) {
-                    setCurrQus((n) => n - 1);
-                  }
-                }}
+                onClick={handleBackClick}
                 sx={{ width: 160 }}
                 disabled={ternary(areEqual(currQus, 0), true, false)}
               >
