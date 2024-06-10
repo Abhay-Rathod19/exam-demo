@@ -2,11 +2,11 @@ import { Navigate } from "react-router";
 import { authenticateUser } from "../../helpers/authentication";
 
 export const ProtectedRoute = ({ children }) => {
-    const lcStrRole = authenticateUser();
+  const lcStrRole = authenticateUser();
 
-    if (lcStrRole) {
-        return children;
-    }
+  if (lcStrRole) {
+    return children;
+  }
 
-    return <Navigate to="/" />;
+  return <Navigate to="/" />;
 };

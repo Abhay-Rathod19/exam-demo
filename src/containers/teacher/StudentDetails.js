@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import { ternary } from "../utils/javaScript";
-import { fetchApiData } from "../redux/slices/apiSlice";
-import { removeApiData } from "../redux/slices/apiSlice";
-import { ExmTypography } from "../shared/ExmTypography";
-import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
-import { ExmTableComponent } from "../shared/ExmTableComp";
+import { ternary } from "../../utils/javaScript";
+import { fetchApiData } from "../../redux/slices/apiSlice";
+import { removeApiData } from "../../redux/slices/apiSlice";
+import { ExmTypography } from "../../shared/ExmTypography";
+import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
+import { ExmTableComponent } from "../../shared/ExmTableComp";
 
 export const StudentDetails = () => {
   const dispatch = useDispatch();

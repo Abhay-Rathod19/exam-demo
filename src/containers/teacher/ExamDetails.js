@@ -2,15 +2,15 @@ import React, { useEffect } from "react";
 import { Box, Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { ExmTypography } from "../shared/ExmTypography";
-import { getExamDetails } from "../helpers/teacherModule/teacherActions";
-import { GET_EXAM_DETAILS } from "../constants/userModule/apiConstants";
+import { ExmTypography } from "../../shared/ExmTypography";
+import { getExamDetails } from "../../helpers/teacherModule/teacherActions";
+import { GET_EXAM_DETAILS } from "../../constants/userModule/apiConstants";
 // import { ExmButton } from "../shared/ExmButton";
 // import { deleteExam } from "../helpers/teacherModule/teacherActions";
-import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
-import { CreateExam } from "../components/CreateExam";
-import { editPutExam } from "../helpers/teacherModule/teacherActions";
-import { resetLoader } from "../redux/slices/apiSlice";
+import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
+import { CreateExam } from "../../components/CreateExam";
+import { editPutExam } from "../../helpers/teacherModule/teacherActions";
+import { resetLoader } from "../../redux/slices/apiSlice";
 
 export const ExamDetails = () => {
   const [idParam] = useSearchParams();
@@ -44,12 +44,6 @@ export const ExamDetails = () => {
             examActype="Post edit exam"
             CurExamData={CurExamData}
           />
-          {/* <ExmButton
-            sx={{ w: 1, my: 10 }}
-            onClick={() => deleteExam(exmId, navigate)}
-          >
-            Delete this Exam
-          </ExmButton> */}
         </Stack>
       ) : (
         <ExmSpinnerCom />

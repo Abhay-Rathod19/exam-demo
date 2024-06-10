@@ -20,13 +20,13 @@ export const CExamForm = ({
   setFormData,
   setPostExm,
   examActype,
+  disablField,
 }) => {
   const dispatch = useDispatch();
   const allErrors = useSelector((state) => state?.teacher?.allErrors);
   const examAnswer = useSelector((state) => state?.student?.exmAnswer);
   const [currQus, setCurrQus] = useState(0);
   const [nextBtn, setNextBtn] = useState(false);
-
   const curQusAns = examAnswer[currQus]?.answer;
   const totalQus = ternary(
     areEqual(examActype, SUBMIT_EXM_STD),
@@ -179,11 +179,13 @@ export const CExamForm = ({
                   name={`qus-${currQus}`}
                   value={data?.question || ""}
                   onChange={(e) => changeQus(e, currQus)}
-                  disabled={ternary(
-                    areEqual(examActype, SUBMIT_EXM_STD),
-                    true,
-                    false
-                  )}
+                  disabled={
+                    ternary(
+                      areEqual(examActype, SUBMIT_EXM_STD),
+                      true,
+                      false
+                    ) || disablField
+                  }
                 />
               )}
 
@@ -231,11 +233,13 @@ export const CExamForm = ({
                       id="exm-input-fields"
                       value={opt || ""}
                       onChange={(e) => changeOption(e, currQus, optIndex)}
-                      disabled={ternary(
-                        areEqual(examActype, SUBMIT_EXM_STD),
-                        true,
-                        false
-                      )}
+                      disabled={
+                        ternary(
+                          areEqual(examActype, SUBMIT_EXM_STD),
+                          true,
+                          false
+                        ) || disablField
+                      }
                     />
                   )}
 

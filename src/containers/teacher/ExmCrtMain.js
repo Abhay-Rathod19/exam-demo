@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { resetLoader } from "../redux/slices/apiSlice";
-import { CreateExam } from "../components/CreateExam";
-import { createExam } from "../helpers/teacherModule/teacherActions";
-import { removeAllErr } from "../redux/slices/teacherSlice";
+import { resetLoader } from "../../redux/slices/apiSlice";
+import { CreateExam } from "../../components/CreateExam";
+import { createExam } from "../../helpers/teacherModule/teacherActions";
+import { removeAllErr } from "../../redux/slices/teacherSlice";
 
 export const ExmCrtMain = () => {
   const data = [
@@ -21,9 +21,5 @@ export const ExmCrtMain = () => {
     dispatch(removeAllErr());
   }, []);
 
-  return (
-    <>
-      <CreateExam data={data} exmAction={createExam} />
-    </>
-  );
+  return <CreateExam data={data} exmAction={createExam} />;
 };

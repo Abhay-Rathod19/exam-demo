@@ -152,17 +152,9 @@ export const ExmTableComponent = ({
             })}
           </tbody>
         </table>
-        {/* {ternary(
-          tableData?.length >= dataLimit,
-          <Pagination
-            count={totalPage}
-            onChange={(e, value) => setCurrPage(value)}
-            color="primary"
-          />,
-          ""
-        )} */}
+
         {ternary(
-          totalPage > 1,
+          areEqual(search?.length, 0) && currPage < totalPage,
           <Pagination
             count={totalPage}
             onChange={(e, value) => setCurrPage(value)}

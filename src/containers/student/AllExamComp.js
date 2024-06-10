@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Box } from "@mui/material";
-import { ExmTypography } from "../shared/ExmTypography";
+import { ExmTypography } from "../../shared/ExmTypography";
 import { useSelector } from "react-redux";
-import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
-import { ExmTableComponent } from "../shared/ExmTableComp";
-import { getAllExams } from "../helpers/studentModule/studentActions";
-import { SET_EXAM_PAPER_PATH } from "../constants/userModule/apiConstants";
+import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
+import { ExmTableComponent } from "../../shared/ExmTableComp";
+import { getAllExams } from "../../helpers/studentModule/studentActions";
+import { SET_EXAM_PAPER_PATH } from "../../constants/userModule/apiConstants";
 import { useNavigate } from "react-router";
 
 export const AllExamComp = () => {

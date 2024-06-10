@@ -1,4 +1,3 @@
-
 export const teachSideBarOpts = [
   {
     label: "All student data",

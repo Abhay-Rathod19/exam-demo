@@ -4,7 +4,6 @@ import { apiReducer } from "../slices/apiSlice";
 import { teacherReducer } from "../slices/teacherSlice";
 import { studentReducer } from "../slices/studentSlice";
 
-
 export const exmStore = configureStore({
   reducer: {
     exm: userSliceReducer,

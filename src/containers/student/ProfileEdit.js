@@ -1,9 +1,9 @@
 import { Box, Stack } from "@mui/material";
-import { ExmTypography } from "../shared/ExmTypography";
-import { getFromLocalStorage } from "../utils/javaScript";
-import { RenderFormFields } from "../shared/ExmFormFields";
-import { editProfileForm } from "../description/student.description";
-import { changeStdName } from "../helpers/studentModule/studentActions";
+import { ExmTypography } from "../../shared/ExmTypography";
+import { getFromLocalStorage } from "../../utils/javaScript";
+import { RenderFormFields } from "../../shared/ExmFormFields";
+import { editProfileForm } from "../../description/student.description";
+import { changeStdName } from "../../helpers/studentModule/studentActions";
 
 export const ProfileEdit = () => {
   const userName = JSON.parse(getFromLocalStorage("LogInUser"))?.name;

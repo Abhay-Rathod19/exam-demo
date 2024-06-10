@@ -81,10 +81,6 @@ export const createExam = async (examData, navigate) => {
 };
 
 export const deleteExam = async (examId, navigate) => {
-  // const askToDelete = window.confirm(
-  //   "Are you sure you want to delete this exam ?"
-  // );
-  // if (askToDelete) {
   const request = await exmStore.dispatch(
     fetchApiData({
       url: `${DELETE_EXAM_API}${examId}`,
@@ -95,7 +91,6 @@ export const deleteExam = async (examId, navigate) => {
 
   if (areEqual(request?.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
     exmStore.dispatch(setApiMsg(request.payload?.message));
-    navigate("/dashboard/Teacher/viewExam");
   }
 };
 

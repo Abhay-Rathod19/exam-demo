@@ -38,5 +38,12 @@ const studentSlice = createSlice({
 });
 
 export const studentReducer = studentSlice.reducer;
-export const { setExamPaper, setExmAnswer, setAllExams, setStdProfile, setNoticeMsg, removeExmPaper, rmvNoticeMsg } =
-  studentSlice.actions;
+export const {
+  setExamPaper,
+  setExmAnswer,
+  setAllExams,
+  setStdProfile,
+  setNoticeMsg,
+  removeExmPaper,
+  rmvNoticeMsg,
+} = studentSlice.actions;

@@ -88,7 +88,7 @@ export const CreateExam = ({
 
   return (
     <Stack sx={{ px: 2 }} spacing={3}>
-      <Stack className="crt-exm-qus-notes" spacing={2}>
+      <>
         {createExmFields?.map((data, idx) => {
           return (
             <Stack
@@ -116,11 +116,13 @@ export const CreateExam = ({
                     });
                     valCrtExmForm(data?.name, e.target.value, "", dispatch);
                   }}
-                  disabled={ternary(
-                    areEqual(examActype, SUBMIT_EXM_STD),
-                    true,
-                    false
-                  )}
+                  disabled={
+                    ternary(
+                      areEqual(examActype, SUBMIT_EXM_STD),
+                      true,
+                      false
+                    ) || ternary(exmLoading, true, false)
+                  }
                 />
               )}
               <ExmTypography sx={{ color: "red", fontSize: "17px" }}>
@@ -129,7 +131,7 @@ export const CreateExam = ({
             </Stack>
           );
         })}
-      </Stack>
+      </>
 
       <hr style={{ width: "100%", height: "5px", borderRadius: "4px" }} />
 
@@ -138,6 +140,7 @@ export const CreateExam = ({
         formData={formData}
         setFormData={setFormData}
         examActype={examActype}
+        disablField={ternary(exmLoading, true, false)}
       />
       <ExmButton
         disabled={

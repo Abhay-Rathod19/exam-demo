@@ -1,17 +1,17 @@
 import { useRoutes } from "react-router";
 import { UserAction } from "../presentation/UserAction";
-import { StudentDetails } from "../containers/StudentDetails";
-import { ProfileEdit } from "../containers/ProfileEdit";
-import { GiveExamComp } from "../containers/GiveExamComp";
-import { AllExamComp } from "../containers/AllExamComp";
-import { StudentProfile } from "../containers/StudentProfile";
+import { StudentDetails } from "../containers/teacher/StudentDetails";
+import { ProfileEdit } from "../containers/student/ProfileEdit";
+import { GiveExamComp } from "../containers/student/GiveExamComp";
+import { AllExamComp } from "../containers/student/AllExamComp";
+import { StudentProfile } from "../containers/student/StudentProfile";
 import { AllStudent } from "../presentation/AllStudent";
 import { VerifiedStd } from "../presentation/VerifiedStd";
 import { PrivateRoute } from "./private/PrivateRoute";
 import { PublicRoute } from "./public/PublicRoute";
-import { ExmCrtMain } from "../containers/ExmCrtMain";
-import { ViewExam } from "../containers/ViewAllExam";
-import { ExamDetails } from "../containers/ExamDetails";
+import { ExmCrtMain } from "../containers/teacher/ExmCrtMain";
+import { ViewExam } from "../containers/teacher/ViewAllExam";
+import { ExamDetails } from "../containers/teacher/ExamDetails";
 import { ProtectedRoute } from "./private/Protected";
 import {
   userFgtPsProps,
@@ -120,7 +120,7 @@ export const UserRoutes = () => {
             <ProtectedRoute>
               <UserAction {...userRstPsProps} />
             </ProtectedRoute>
-          )
+          ),
         },
       ],
     },

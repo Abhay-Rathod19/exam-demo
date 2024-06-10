@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import { ExmTableComponent } from "../shared/ExmTableComp";
-import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
-import { ExmTypography } from "../shared/ExmTypography";
+import { useNavigate } from "react-router";
+import { ExmTableComponent } from "../../shared/ExmTableComp";
+import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
+import { ExmTypography } from "../../shared/ExmTypography";
+import { VIEW_EXAM_DETAILS_API } from "../../constants/userModule/apiConstants";
+import { removeAllErr } from "../../redux/slices/teacherSlice";
+import { areEqual } from "../../utils/javaScript";
 import {
   deleteExam,
   viewAllExam,
-} from "../helpers/teacherModule/teacherActions";
-import { VIEW_EXAM_DETAILS_API } from "../constants/userModule/apiConstants";
-import { useNavigate } from "react-router";
-import { removeAllErr } from "../redux/slices/teacherSlice";
-import { areEqual } from "../utils/javaScript";
+} from "../../helpers/teacherModule/teacherActions";
 
 export const ViewExam = () => {
   const loading = useSelector((state) => state?.api?.loading);
@@ -38,9 +38,7 @@ export const ViewExam = () => {
 
   return (
     <Box className="view-exam-details" sx={{ textAlign: "center" }}>
-      <ExmTypography sx={{ m: "5px"}}>
-        All Exams
-      </ExmTypography>
+      <ExmTypography sx={{ m: "5px" }}>All Exams</ExmTypography>
       {loading ? (
         <ExmSpinnerCom />
       ) : (

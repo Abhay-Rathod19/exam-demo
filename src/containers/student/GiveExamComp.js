@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { CreateExam } from "../components/CreateExam";
-import { getExamPaper } from "../helpers/studentModule/studentActions";
-import { ExmSpinnerCom } from "../shared/ExmSpinnerCom";
-import { AlreadyExmGiven } from "../components/AlreadyExmGiven";
-import { ExmTypography } from "../shared/ExmTypography";
-import { SUBMIT_EXM_STD } from "../description/teacher.description";
+import { CreateExam } from "../../components/CreateExam";
+import { getExamPaper } from "../../helpers/studentModule/studentActions";
+import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
+import { AlreadyExmGiven } from "../../components/AlreadyExmGiven";
+import { ExmTypography } from "../../shared/ExmTypography";
+import { SUBMIT_EXM_STD } from "../../description/teacher.description";
 
 export const GiveExamComp = () => {
   const [serchId] = useSearchParams();
