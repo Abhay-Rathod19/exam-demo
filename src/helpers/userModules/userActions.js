@@ -9,7 +9,12 @@ import {
 } from "../../utils/javaScript";
 import { addToLogUser } from "../../redux/slices/userSlice";
 
-export const onUserSignUp = async (formData, navigate, setFormData) => {
+export const onUserSignUp = async (
+  formData,
+  navigate,
+  setFormData,
+  dispatch
+) => {
   const data = {
     name: formData?.name,
     email: formData?.email,
@@ -21,6 +26,7 @@ export const onUserSignUp = async (formData, navigate, setFormData) => {
       url: "/users/SignUp",
       method: "post",
       data,
+      dispatch,
     })
   );
 
@@ -31,7 +37,12 @@ export const onUserSignUp = async (formData, navigate, setFormData) => {
   }
 };
 
-export const onUserLogIn = async (formData, navigate, setFormData) => {
+export const onUserLogIn = async (
+  formData,
+  navigate,
+  setFormData,
+  dispatch
+) => {
   const data = {
     email: formData?.email,
     password: formData?.password,
@@ -41,6 +52,7 @@ export const onUserLogIn = async (formData, navigate, setFormData) => {
       url: "/users/Login",
       method: "post",
       data,
+      dispatch,
     })
   );
 
@@ -54,7 +66,12 @@ export const onUserLogIn = async (formData, navigate, setFormData) => {
   }
 };
 
-export const onUserForgetPass = async (formData, navigate, setFormData) => {
+export const onUserForgetPass = async (
+  formData,
+  navigate,
+  setFormData,
+  dispatch
+) => {
   const data = {
     email: formData?.email,
   };
@@ -63,6 +80,7 @@ export const onUserForgetPass = async (formData, navigate, setFormData) => {
       url: "/users/ForgotPassword",
       method: "post",
       data,
+      dispatch,
     })
   );
 
@@ -73,7 +91,12 @@ export const onUserForgetPass = async (formData, navigate, setFormData) => {
   }
 };
 
-export const onUserNewPass = async (formData, navigate, setFormData) => {
+export const onUserNewPass = async (
+  formData,
+  navigate,
+  setFormData,
+  dispatch
+) => {
   const data = {
     Password: formData?.password,
     ConfirmPassword: formData?.confirmPassword,
@@ -85,6 +108,7 @@ export const onUserNewPass = async (formData, navigate, setFormData) => {
       url: `/users/ForgotPassword/Verify?token=${newPassToken}`,
       method: "post",
       data,
+      dispatch,
     })
   );
 
@@ -95,7 +119,12 @@ export const onUserNewPass = async (formData, navigate, setFormData) => {
   }
 };
 
-export const onUserResetPass = async (formData, navigate, setFormData) => {
+export const onUserResetPass = async (
+  formData,
+  navigate,
+  setFormData,
+  dispatch
+) => {
   const data = {
     oldPassword: formData?.oldPassword,
     Password: formData?.newPassword,
@@ -106,6 +135,7 @@ export const onUserResetPass = async (formData, navigate, setFormData) => {
       url: "/users/ResetPassword",
       method: "post",
       data,
+      dispatch,
     })
   );
 

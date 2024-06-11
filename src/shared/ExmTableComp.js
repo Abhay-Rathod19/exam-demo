@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Pagination, Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
@@ -21,7 +21,6 @@ export const ExmTableComponent = ({
 }) => {
   const [currPage, setCurrPage] = useState(1);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const cloneArray = structuredClone(objectArray);
@@ -154,7 +153,7 @@ export const ExmTableComponent = ({
         </table>
 
         {ternary(
-          areEqual(search?.length, 0) && currPage < totalPage,
+          areEqual(search?.length, 0) && currPage <= totalPage,
           <Pagination
             count={totalPage}
             onChange={(e, value) => setCurrPage(value)}

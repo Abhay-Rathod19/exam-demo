@@ -38,6 +38,9 @@ const teacherSlice = createSlice({
     verifiedStdData: (state, action) => {
       state.studentData["verifiedStd"] = [...action.payload];
     },
+    setStudDetail: (state, action) => {
+      state.studentData["idvStudent"] = [...action.payload];
+    },
   },
 });
 
@@ -51,4 +54,5 @@ export const {
   addExmNameData,
   allStdData,
   verifiedStdData,
+  setStudDetail,
 } = teacherSlice.actions;

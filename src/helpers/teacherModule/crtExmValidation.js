@@ -40,7 +40,6 @@ export const valCrtExmForm = (name, value, examDataObj, dispatch) => {
     for (let field in examDataObj) {
       if (areEqual(typeof examDataObj[field], "undefined")) {
         if (!examDataObj[field]) {
-          console.log(`Form sub req to not`);
           validData = false;
           dispatch(addToAllErr({ ["Subject"]: `Subject field is required` }));
         }

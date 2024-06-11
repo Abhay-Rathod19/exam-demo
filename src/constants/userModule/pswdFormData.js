@@ -11,6 +11,16 @@ export const forgotPassData = [
     btnType: "Submit",
     styles: { my: "15px" },
   },
+  {
+    inputType: "additionalAction",
+    addActionData: [{ label: "Login", onClickPath: "/" }],
+    styles: {
+      color: "#3f1a85",
+      fontWeight: "500",
+      cursor: "pointer",
+      display: "grid",
+    },
+  },
 ];
 
 export const newPassData = [

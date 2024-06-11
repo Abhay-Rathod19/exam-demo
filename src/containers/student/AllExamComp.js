@@ -9,7 +9,9 @@ import { SET_EXAM_PAPER_PATH } from "../../constants/userModule/apiConstants";
 import { useNavigate } from "react-router";
 
 export const AllExamComp = () => {
-  const allExams = useSelector((state) => state?.student?.allExams);
+  const allExams = useSelector((state) => state?.student?.allExams).map(
+    ({ Result, ...rest }) => rest
+  );
   const loading = useSelector((state) => state?.api?.loading);
   const navigate = useNavigate();
 
@@ -19,14 +21,14 @@ export const AllExamComp = () => {
 
   return (
     <Box sx={{ textAlign: "center" }}>
-      <ExmTypography>All Exams are</ExmTypography>
+      <ExmTypography sx={{ marginBottom: "15px" }}>All Exams are</ExmTypography>
       {loading ? (
         <ExmSpinnerCom />
       ) : (
         <ExmTableComponent
           objectArray={allExams}
           btnLabel="Give Exam"
-          // showNotes={true}
+          showNotes={true}
           urlPath={SET_EXAM_PAPER_PATH}
         />
       )}

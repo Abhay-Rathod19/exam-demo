@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import { validateFormFields } from "../helpers/validateFormFields";
 import { areEqual, objectValues, ternary } from "../utils/javaScript";
 import { addSubmitedData } from "../redux/slices/userSlice";
 import { ExmSpinnerCom } from "./ExmSpinnerCom";
+import { resetLoader } from "../redux/slices/apiSlice";
 
 export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
   const dispatch = useDispatch();
@@ -38,6 +39,14 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
     });
   };
 
+  useEffect(() => {
+    return () => {
+      setFormData({});
+      setFormError({});
+      dispatch(resetLoader());
+    };
+  }, [formName]);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (
@@ -52,7 +61,7 @@ export const RenderFormFields = ({ fieldsObject, formName, onFormSubmit }) => {
     ) {
       const dataToSbmt = { [formName]: formData };
       dispatch(addSubmitedData(dataToSbmt));
-      onFormSubmit(formData, navigate, setFormData);
+      onFormSubmit(formData, navigate, setFormData, dispatch);
       return true;
     }
     return false;

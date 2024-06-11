@@ -3,6 +3,7 @@ import { fetchApiData } from "../../redux/slices/apiSlice";
 import { addAllExams, verifiedStdData } from "../../redux/slices/teacherSlice";
 import { allStdData } from "../../redux/slices/teacherSlice";
 import { addToViewExamQus } from "../../redux/slices/teacherSlice";
+import { setStudDetail } from "../../redux/slices/teacherSlice";
 import {
   VIEW_EXAM_API,
   CREATE_EXAM_API,
@@ -12,7 +13,6 @@ import {
   POST,
   DELETE,
   PUT,
-  JWT_FAIL_CODE,
   API_REQ_SUCCESS_CODE,
   GET_ALL_STD_DATA,
   GET_VERIFIED_STD_DATA,
@@ -107,5 +107,19 @@ export const editPutExam = async (examData, navigate, examId) => {
   if (areEqual(request?.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
     exmStore.dispatch(setApiMsg(request.payload?.message));
     navigate("/dashboard/Teacher/viewExam");
+  }
+};
+
+export const getStudDetail = async (stdId, navigate) => {
+  const request = await exmStore.dispatch(
+    fetchApiData({
+      url: `/dashboard/Teachers/viewStudentDetail?id=${stdId}`,
+      method: GET,
+      navigate,
+    })
+  );
+  if (areEqual(request.payload?.statusCode, API_REQ_SUCCESS_CODE)) {
+    console.log("i am setting");
+    exmStore.dispatch(setStudDetail(request?.payload?.data));
   }
 };

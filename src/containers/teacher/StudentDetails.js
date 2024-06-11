@@ -1,28 +1,27 @@
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { ternary } from "../../utils/javaScript";
-import { fetchApiData } from "../../redux/slices/apiSlice";
-import { removeApiData } from "../../redux/slices/apiSlice";
+import { getStudDetail } from "../../helpers/teacherModule/teacherActions";
 import { ExmTypography } from "../../shared/ExmTypography";
 import { ExmSpinnerCom } from "../../shared/ExmSpinnerCom";
 import { ExmTableComponent } from "../../shared/ExmTableComp";
 
 export const StudentDetails = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [idParam] = useSearchParams();
   const stdId = idParam?.get("id");
   const loading = useSelector((state) => state?.api?.loading);
 
   useEffect(() => {
-    dispatch(removeApiData());
-    dispatch(
-      fetchApiData({ url: `/dashboard/Teachers/viewStudentDetail?id=${stdId}` })
-    );
-  }, [dispatch]);
+    getStudDetail(stdId, navigate);
+  }, []);
 
-  const stdDetails = useSelector((state) => state?.api?.apiData);
+  const stdDetails = useSelector(
+    (state) => state?.teacher?.studentData?.idvStudent
+  );
 
   return (
     <Box className="student-data-container" sx={{ p: "0 20px" }}>

@@ -2,7 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { userDataApi } from "../../apis/dataFetchApi";
 import { setToLocalStorage } from "../../utils/javaScript";
 import { areEqual } from "../../utils/javaScript";
-import { JWT_FAIL_CODE } from "../../constants/userModule/apiConstants";
+import {
+  API_REQ_SUCCESS_CODE,
+  JWT_FAIL_CODE,
+} from "../../constants/userModule/apiConstants";
 import { jwtFailRedirect } from "../../helpers/authentication";
 
 const initialState = {
@@ -17,12 +20,15 @@ const initialState = {
 
 export const fetchApiData = createAsyncThunk(
   "apiData/fetchData",
-  async ({ url, method, data, navigate }) => {
+  async ({ url, method, data, navigate, dispatch }) => {
     const response = await userDataApi({
       url: url,
       method: method,
       data: data,
     });
+    if (!areEqual(response?.statusCode, API_REQ_SUCCESS_CODE)) {
+      dispatch(setApiMsg(response?.message));
+    }
     if (areEqual(response?.statusCode, JWT_FAIL_CODE)) {
       jwtFailRedirect(navigate);
     }
@@ -51,6 +57,7 @@ export const apiSlice = createSlice({
     },
     resetLoader: (state, action) => {
       state.loading = false;
+      state.examLoading = false;
     },
   },
   extraReducers: (builder) => {
@@ -63,7 +70,6 @@ export const apiSlice = createSlice({
         state.loading = false;
         state.examLoading = false;
         state.apiResponse = action.payload;
-        // state.apiMessage = action.payload.message; //msg set
         state.apiData = action.payload?.data;
         state.useApiToken = action.payload?.data?.token;
         if (action.payload?.data?.token) {
