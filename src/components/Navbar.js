@@ -8,14 +8,18 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
 import { ExmButton } from "../shared/ExmButton";
 import { getFromLocalStorage, rmvFromLclStorage } from "../utils/javaScript";
+import { useDispatch } from "react-redux";
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const userName = JSON.parse(getFromLocalStorage("LogInUser"))?.name;
 
+  const dispatch = useDispatch();
+
   const onUserLogout = () => {
     rmvFromLclStorage("LogInUser");
     navigate("/");
+    dispatch({ type: "USER_LOGGED_OUT" });
   };
 
   return (
