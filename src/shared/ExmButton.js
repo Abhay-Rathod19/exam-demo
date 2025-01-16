@@ -1,10 +1,20 @@
-import { Button } from '@mui/material';
-import React from 'react';
+import React from "react";
+import { Button } from "@mui/material";
 
 export const ExmButton = ({ children, ...props }) => {
-    return (
-        <Button sx={{ my: "15px", height: 50 }} variant="contained" {...props} type={props.type}>
-            {children}
-        </Button>
-    )
-}
+  return (
+    <Button
+      variant="contained"
+      disableElevation
+      disableRipple
+      sx={{
+        my: "15px",
+        height: 70,
+      }}
+      type={props.type}
+      {...props}
+    >
+      {children}
+    </Button>
+  );
+};

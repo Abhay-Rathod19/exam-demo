@@ -1,38 +1,54 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const teacherSlice = createSlice({
-    name: "teacherModule",
-    initialState: {
-        questions: [],
-        allQuestions: {},
-        allOptions: {},
-        allAnswer: {},
-        allErrors: {},
-        examData: {},
+  name: "teacherModule",
+  initialState: {
+    allExams: [],
+    allErrors: {},
+    viewExamQus: [],
+    examNameNotes: {},
+    studentData: {},
+  },
+  reducers: {
+    addToAllErr: (state, action) => {
+      state.allErrors = { ...state.allErrors, ...action.payload };
     },
-    reducers: {
-        addQuestions: (state, action) => {
-            state.questions = [...state.questions, action.payload];
-        },
-        addExamData: (state, action) => {
-            state.questions = { ...state.questions, ...action.payload };
-        },
-        addToAllQus: (state, action) => {
-            state.allQuestions = { ...state.allQuestions, ...action.payload };
-        },
-        addToAllOpts: (state, action) => {
-            const optData = action.payload;
-            state.allOptions[optData.qus] = { ...state.allOptions[optData.qus], ...optData.data };
-        },
-        addToAllAns: (state, action) => {
-            state.allAnswer = { ...state.allAnswer, ...action.payload };
-        },
-        addToAllErr: (state, action) => {
-            // console.log("incoming : ", action.payload)
-            state.allErrors = { ...state.allErrors, ...action.payload }
-        },
+    removeAllErr: (state, action) => {
+      state.allErrors = {};
     },
+    addAllExams: (state, action) => {
+      state.allExams = [...action.payload];
+    },
+    addToViewExamQus: (state, action) => {
+      state.viewExamQus = [...action.payload];
+    },
+    removeAllQues: (state, action) => {
+      state.viewExamQus = [];
+    },
+    addExmNameData: (state, action) => {
+      const data = action?.payload;
+      state.examNameNotes = {
+        examName: data?.subjectName,
+        notes: data?.notes[0],
+      };
+    },
+    allStdData: (state, action) => {
+      state.studentData["allStudent"] = [...action.payload];
+    },
+    verifiedStdData: (state, action) => {
+      state.studentData["verifiedStd"] = [...action.payload];
+    },
+  },
 });
 
 export const teacherReducer = teacherSlice.reducer;
-export const { addQuestions, addToAllQus, addToAllAns, addToAllErr, addToAllOpts } = teacherSlice.actions;
+export const {
+  addToAllErr,
+  removeAllErr,
+  addAllExams,
+  addToViewExamQus,
+  removeAllQues,
+  addExmNameData,
+  allStdData,
+  verifiedStdData,
+} = teacherSlice.actions;
